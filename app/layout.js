@@ -1,6 +1,8 @@
 import Header from "@/components/layouts/Header";
 import { GlobalProvider } from "./GlobalProvider";
 import "./globals.css";
+import Footer from "@/components/layouts/Footer";
+import ScrollToTopBtn from "@/components/layouts/ScrollToTopBtn";
 
 export default function RootLayout({ children }) {
   return (
@@ -10,6 +12,8 @@ export default function RootLayout({ children }) {
         <GlobalProvider>
           <Header />
           {children}
+          <ScrollToTopBtn />
+          <Footer />
         </GlobalProvider>
       </body>
     </html>

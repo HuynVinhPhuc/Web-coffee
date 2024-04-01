@@ -8,6 +8,9 @@ import { SessionProvider } from "next-auth/react";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export function GlobalProvider({ children }) {
   return (
@@ -19,7 +22,7 @@ export function GlobalProvider({ children }) {
             <ProductProvider>
               <SessionProvider>{children}</SessionProvider>
             </ProductProvider>
-          </OrderProvider>          
+          </OrderProvider>
         </CartProvider>
       </AuthProvider>
     </>
