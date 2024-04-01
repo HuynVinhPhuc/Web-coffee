@@ -1,6 +1,13 @@
+import BreadCrumbs from "@/components/layouts/BreadCrumbs";
+
 const About = () => {
+  const breadCrumbs = [
+    { name: "Trang Chủ", url: "/" },
+    { name: "Giới Thiệu", url: "/about" },
+  ];
   return (
     <>
+      <BreadCrumbs breadCrumbs={breadCrumbs} />
       <div className="container px-10 sm:px-60 my-10 ">
         <p className="flex justify-center text-3xl font-semibold mb-10">
           Về chúng tôi

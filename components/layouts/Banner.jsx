@@ -5,9 +5,9 @@ import { useTypewriter, Cursor } from "react-simple-typewriter";
 const Banner = () => {
   const [text] = useTypewriter({
     words: [
-      "Your trusted Shopping Platform.",
-      "Providing best user experience for customers.",
-      "Delivery on time in demand.",
+      "Nền tảng mua sắm đáng tin cậy của bạn.",
+      "Mang lại trải nghiệm sử dụng tốt nhất cho khách hàng.",
+      "Giao hàng đúng thời gian theo yêu cầu.",
     ],
     loop: true,
     typeSpeed: 30,
@@ -17,7 +17,7 @@ const Banner = () => {
   return (
     <div className="h-96 max-w-screen-2xl mx-auto flex flex-col justify-center items-center">
       <h1 className="pt-56 text-2xl md:text-4xl uppercase font-bold">
-        SHOPPERS ONLINE SHOPPING
+        CỬA HÀNG CÀ PHÊ TỐT NHẤT
       </h1>
       <p className="text-base md:text-lg font-semibold mt-2">
         {text} <Cursor cursorBlinking cursorStyle="|" cursorColor="#ffaa17" />

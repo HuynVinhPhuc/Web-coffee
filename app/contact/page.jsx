@@ -1,6 +1,13 @@
+import BreadCrumbs from "@/components/layouts/BreadCrumbs";
+
 const Contact = () => {
+  const breadCrumbs = [
+    { name: "Trang Chủ", url: "/" },
+    { name: "Liên Hệ", url: "/contact" },
+  ];
   return (
     <>
+      <BreadCrumbs breadCrumbs={breadCrumbs} />
       <div className="container px-30 sm:px-96 my-20 ">
         <div className="px-10 sm:px-20">
           <div className="border border-grey-200 rounded-lg">

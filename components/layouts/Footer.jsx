@@ -82,7 +82,7 @@ const Footer = () => {
         <h1 className=" text-gray-800 font-semibold">
           © 2024-2025 All rights reserved | Build with ❤ by{" "}
           <span className="hover:text-blue-600 font-semibold cursor-pointer">
-            streamline{" "}
+            Me{" "}
           </span>
         </h1>
       </div>
