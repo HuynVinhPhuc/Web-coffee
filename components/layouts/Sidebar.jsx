@@ -18,12 +18,12 @@ const Sidebar = () => {
         {user?.role === "admin" && (
           <>
             <li>
-              {" "}
+              <div className="font-semibold text-2xl mb-3">Admin</div>{" "}
               <Link
                 href="/admin/products/new"
                 className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
               >
-                New Product <span className="text-red-500">(Admin)</span>
+                Tạo sản phẩm mới
               </Link>
             </li>
 
@@ -33,7 +33,7 @@ const Sidebar = () => {
                 href="/admin/products"
                 className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
               >
-                All Products <span className="text-red-500">(Admin)</span>
+                Tất cả sản phẩm
               </Link>
             </li>
 
@@ -43,7 +43,7 @@ const Sidebar = () => {
                 href="/admin/orders"
                 className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
               >
-                All Orders <span className="text-red-500">(Admin)</span>
+                Danh sách đơn hàng
               </Link>
             </li>
 
@@ -53,7 +53,7 @@ const Sidebar = () => {
                 href="/admin/users"
                 className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
               >
-                All Users <span className="text-red-500">(Admin)</span>
+                Danh sách người dùng
               </Link>
             </li>
 
@@ -67,7 +67,7 @@ const Sidebar = () => {
             href="/me"
             className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
           >
-            Your Profile
+            Thông tin cá nhân
           </Link>
         </li>
         <li>
@@ -76,7 +76,7 @@ const Sidebar = () => {
             href="/me/orders"
             className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
           >
-            Orders
+            Danh sách đơn hàng
           </Link>
         </li>
         <li>
@@ -85,7 +85,7 @@ const Sidebar = () => {
             href="/me/update"
             className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
           >
-            Update Profile
+            Cập nhật thông tin cá nhân
           </Link>
         </li>
         <li>
@@ -94,7 +94,7 @@ const Sidebar = () => {
             href="/me/update_password"
             className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
           >
-            Update Password
+            Cập nhật mật khẩu
           </Link>
         </li>
 
@@ -104,7 +104,7 @@ const Sidebar = () => {
             className="block px-3 py-2 text-red-800 hover:bg-red-100 hover:text-white-500 rounded-md cursor-pointer"
             onClick={logoutHandler}
           >
-            Logout
+            Đăng xuất
           </a>
         </li>
       </ul>

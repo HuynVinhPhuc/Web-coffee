@@ -5,8 +5,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const UpdateProduct = ({ data }) => {
-
-    const { updateProduct, error, updated, setUpdated, clearErrors } = useContext(ProductContext);
+  const { updateProduct, error, updated, setUpdated, clearErrors } =
+    useContext(ProductContext);
 
   const [product, setProduct] = useState({
     name: data?.name,
@@ -30,7 +30,8 @@ const UpdateProduct = ({ data }) => {
     }
   }, [error, updated]);
 
-  const { name, description, seller, price, stock, category, discount } = product;
+  const { name, description, seller, price, stock, category, discount } =
+    product;
 
   const onChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
@@ -52,17 +53,17 @@ const UpdateProduct = ({ data }) => {
 
   return (
     <section className="container max-w-3xl p-6 mx-auto">
-      <h1 className="mb-3 text-xl md:text-3xl font-semibold text-black mb-8">
-        Update Product
+      <h1 className="text-xl md:text-3xl font-semibold text-black mb-8">
+        Cập nhật sản phẩm
       </h1>
 
       <form onSubmit={submitHandler}>
         <div className="mb-4">
-          <label className="block mb-1"> Name </label>
+          <label className="block mb-1"> Tên sản phẩm </label>
           <input
             type="text"
             className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
-            placeholder="Product name"
+            placeholder="Tên sản phẩm"
             name="name"
             value={name}
             onChange={onChange}
@@ -71,11 +72,11 @@ const UpdateProduct = ({ data }) => {
         </div>
 
         <div className="mb-4 mt-5">
-          <label className="block mb-1"> Description </label>
+          <label className="block mb-1"> Mô tả </label>
           <textarea
             rows="4"
             className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
-            placeholder="Product description"
+            placeholder="Mô tả sản phẩm"
             name="description"
             value={description}
             onChange={onChange}
@@ -85,13 +86,13 @@ const UpdateProduct = ({ data }) => {
 
         <div className="grid md:grid-cols-2 gap-x-2 mt-5">
           <div className="mb-4">
-            <label className="block mb-1"> Price </label>
+            <label className="block mb-1"> Giá (nghìn đồng) </label>
             <div className="relative">
               <div className="col-span-2">
                 <input
                   type="text"
                   className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
-                  placeholder="0.00"
+                  placeholder="0"
                   name="price"
                   value={price}
                   onChange={onChange}
@@ -101,7 +102,7 @@ const UpdateProduct = ({ data }) => {
             </div>
           </div>
           <div className="mb-4">
-            <label className="block mb-1"> Category </label>
+            <label className="block mb-1"> Phân loại </label>
             <div className="relative">
               <select
                 className="block appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
@@ -132,11 +133,11 @@ const UpdateProduct = ({ data }) => {
 
         <div className="grid md:grid-cols-2 gap-x-2 mt-5">
           <div className="mb-4">
-            <label className="block mb-1"> Seller / Brand </label>
+            <label className="block mb-1"> Hãng </label>
             <input
               type="text"
               className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
-              placeholder="Seller or brand"
+              placeholder="Hãng"
               name="seller"
               value={seller}
               onChange={onChange}
@@ -145,7 +146,7 @@ const UpdateProduct = ({ data }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block mb-1"> Stock </label>
+            <label className="block mb-1"> Tồn kho </label>
             <div className="relative">
               <div className="col-span-2">
                 <input
@@ -163,11 +164,11 @@ const UpdateProduct = ({ data }) => {
         </div>
 
         <div className="mb-4">
-          <label className="block mb-1"> Discount </label>
+          <label className="block mb-1"> Giảm giá (%) </label>
           <input
             type="text"
             className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
-            placeholder="Discount"
+            placeholder="0"
             name="discount"
             value={discount}
             onChange={onChange}
@@ -179,7 +180,7 @@ const UpdateProduct = ({ data }) => {
           type="submit"
           className="my-2 px-4 py-2 text-center inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 w-full"
         >
-          Update Product
+          Cập nhật
         </button>
       </form>
     </section>

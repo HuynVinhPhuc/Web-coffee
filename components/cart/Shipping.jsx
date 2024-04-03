@@ -8,9 +8,9 @@ import { toast } from "react-toastify";
 import BreadCrumbs from "../layouts/BreadCrumbs";
 
 const Shipping = ({ addresses }) => {
+  const ShopLocation =
+    "195/4 Đ. 30 Tháng 4, Hưng Lợi, Ninh Kiều, Cần Thơ, Việt Nam";
 
-  const ShopLocation = '195/4 Đ. 30 Tháng 4, Hưng Lợi, Ninh Kiều, Cần Thơ, Việt Nam';
-  
   const { cart } = useContext(CartContext);
 
   const [shippingInfo, setShippinInfo] = useState("");
@@ -32,35 +32,47 @@ const Shipping = ({ addresses }) => {
 
   const setShippingAddress = (address) => {
     setShippinInfo(address._id);
-    console.log("địa chỉ: " + address.street + ", " + address.ward + ", " + address.district + ", " + address.city + ", Việt Nam");
+    console.log(
+      "địa chỉ: " +
+        address.street +
+        ", " +
+        address.ward +
+        ", " +
+        address.district +
+        ", " +
+        address.city +
+        ", Việt Nam"
+    );
     // calculateDistance(address.street + ", " + address.ward + ", " + address.district + ", " + address.city + ", Việt Nam");
 
     setDeliveryCharges(50);
-  };  
+  };
 
   const calculateDistance = (destination) => {
-
     const service = new window.google.maps.DistanceMatrixService();
     service.getDistanceMatrix(
       {
         origins: [ShopLocation],
         destinations: [destination],
-        travelMode: 'DRIVING',
+        travelMode: "DRIVING",
         unitSystem: window.google.maps.UnitSystem.METRIC,
       },
       (response, status) => {
-        if (status !== 'OK') {
-          alert('Đã xảy ra lỗi: ' + status);
+        if (status !== "OK") {
+          alert("Đã xảy ra lỗi: " + status);
           return;
         }
         const distance = response.rows[0].elements[0].distance.text;
         console.log("distance => ", distance);
         if (distance.includes("km")) {
-          setDeliveryCharges(calculateShippingFee(Math.floor(parseFloat(distance))));
+          setDeliveryCharges(
+            calculateShippingFee(Math.floor(parseFloat(distance)))
+          );
         } else {
-          setDeliveryCharges(calculateShippingFee(Math.floor(parseFloat(distance))/1000));
+          setDeliveryCharges(
+            calculateShippingFee(Math.floor(parseFloat(distance)) / 1000)
+          );
         }
-        
       }
     );
   };
@@ -70,7 +82,7 @@ const Shipping = ({ addresses }) => {
     if (distance <= 10) return 50;
     if (distance <= 20) return 50 + (distance - 10) * 2;
     return 50 + 10 + (distance - 20) * 1;
-  }
+  };
 
   const checkoutHandler = async () => {
     if (!shippingInfo) {
@@ -92,9 +104,9 @@ const Shipping = ({ addresses }) => {
   };
 
   const breadCrumbs = [
-    { name: "Home", url: "/" },
-    { name: "Cart", url: "/cart" },
-    { name: "Order", url: "" },
+    { name: "Trang Chủ", url: "/" },
+    { name: "Giỏ Hàng", url: "/cart" },
+    { name: "Thanh Toán", url: "/shipping" },
   ];
 
   return (
@@ -105,7 +117,9 @@ const Shipping = ({ addresses }) => {
           <div className="flex flex-col md:flex-row gap-4 lg:gap-8">
             <main className="md:w-2/3">
               <article className="border border-gray-200 bg-white shadow-sm rounded p-4 lg:p-6 mb-5">
-                <h2 className="text-xl font-semibold mb-5">Thông tin vận chuyển</h2>
+                <h2 className="text-xl font-semibold mb-5">
+                  Thông tin vận chuyển
+                </h2>
 
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   {addresses?.map((address) => (
@@ -123,7 +137,8 @@ const Shipping = ({ addresses }) => {
                       <p className="ml-2">
                         <span>{address.name}</span>
                         <small className="block text-sm text-gray-400">
-                          {address.city}, {address.district}, {address.ward}, {address.street}
+                          {address.city}, {address.district}, {address.ward},{" "}
+                          {address.street}
                           <br />
                           Số điện thoại: {address.phoneNo}
                         </small>
@@ -157,24 +172,39 @@ const Shipping = ({ addresses }) => {
             </main>
             <aside className="md:w-1/3">
               <article className="text-gray-600" style={{ maxWidth: "350px" }}>
-                <h2 className="text-lg font-semibold mb-3">Summary</h2>
+                <h2 className="text-lg font-semibold mb-3">Hoá đơn</h2>
                 <ul>
                   <li className="flex justify-between mb-1">
                     <span>Tổng giá tiền:</span>
-                    <span>{cart?.checkoutInfo?.amount}.000 VNĐ</span>
+                    <span>
+                      {cart?.checkoutInfo?.amount.toLocaleString()}.000 VNĐ
+                    </span>
                   </li>
                   <li className="flex justify-between mb-1">
                     <span>Giảm giá:</span>
-                    <span>{cart?.checkoutInfo?.discount.toFixed(0)}.000 VNĐ</span>
+                    <span>
+                      {(+cart?.checkoutInfo?.discount.toFixed(
+                        0
+                      )).toLocaleString()}
+                      .000 VNĐ
+                    </span>
                   </li>
                   <li className="flex justify-between mb-1">
                     <span>Phí vận chuyển:</span>
-                    <span>{DeliveryCharges}.000 VNĐ</span>
+                    {DeliveryCharges !== "0" ? (
+                      <span>{DeliveryCharges}.000 VNĐ</span>
+                    ) : (
+                      <span>{DeliveryCharges} VNĐ</span>
+                    )}
                   </li>
                   <li className="border-t flex justify-between mt-3 pt-3">
                     <span>Tổng tiền:</span>
                     <span className="text-gray-900 font-bold">
-                      {Number(cart?.checkoutInfo?.totalAmount) + Number(DeliveryCharges)}.000 VNĐ
+                      {(
+                        Number(cart?.checkoutInfo?.totalAmount) +
+                        Number(DeliveryCharges)
+                      ).toLocaleString()}
+                      .000 VNĐ
                     </span>
                   </li>
                 </ul>
@@ -201,7 +231,8 @@ const Shipping = ({ addresses }) => {
                     <figcaption className="ml-3">
                       <p>{item.name.substring(0, 50)}</p>
                       <p className="mt-1 text-gray-400">
-                        Tổng tiền: {item.quantity * item.price}.000 VNĐ
+                        Tổng tiền:{" "}
+                        {(item.quantity * item.price).toLocaleString()}.000 VNĐ
                       </p>
                     </figcaption>
                   </figure>
