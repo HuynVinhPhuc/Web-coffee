@@ -44,7 +44,7 @@ const Orders = ({ orders }) => {
           {orders?.orders?.map((order) => (
             <tr className="bg-white">
               <td className="px-6 py-2">{order?._id}</td>
-              <td className="px-6 py-2">${order?.paymentInfo?.amountPaid}</td>
+              <td className="px-6 py-2">${order?.totalAmount}</td>
               <td className="px-6 py-2">{order?.orderStatus}</td>
               <td className="px-6 py-2">
                 <div>

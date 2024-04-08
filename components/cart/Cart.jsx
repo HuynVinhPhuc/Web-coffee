@@ -43,6 +43,8 @@ const Cart = () => {
       amount: amountWithoutDiscount,
       discount: discountAmount,
       totalAmount,
+      deliveryCharges: 0,
+      shippinginfo: "",
     };
 
     saveOnCheckout(data);

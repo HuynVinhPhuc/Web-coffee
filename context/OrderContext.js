@@ -13,6 +13,19 @@ export const OrderProvider = ({ children }) => {
 
   const router = useRouter();
 
+  const newOrder = async (order) => {
+    console.log("do new Order");
+
+    try {
+      const { data } = await axios.post(
+        `${process.env.API_URL}/api/orders`,
+        order
+      );
+    } catch (error) {
+      setError(error?.response?.data?.message);
+    }
+  };
+
   const updateOrder = async (id, orderData) => {
     try {
       const { data } = await axios.put(
@@ -71,6 +84,7 @@ export const OrderProvider = ({ children }) => {
         updateOrder,
         deleteOrder,
         canUserReview,
+        newOrder,
 
         clearErrors,
       }}
