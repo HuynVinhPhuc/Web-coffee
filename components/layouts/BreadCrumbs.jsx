@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 const BreadCrumbs = ({ breadCrumbs }) => {
+  // test
   return (
     <section className="py-2 sm:py-3 bg-blue-100">
       <div className="container max-w-screen-xl mx-auto px-4">
