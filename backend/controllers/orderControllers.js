@@ -102,7 +102,6 @@ export const canReview = async (req, res) => {
 };
 
 export const checkoutSession = async (req, res) => {
-  const body = req.body;
 
   const line_items = body?.items?.map((item) => {
     return {
@@ -138,9 +137,6 @@ export const checkoutSession = async (req, res) => {
     line_items,
   });
 
-  res.status(200).json({
-    url: session.url,
-  });
 };
 
 async function getCartItems(line_items) {
