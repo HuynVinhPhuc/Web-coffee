@@ -11,10 +11,12 @@ const Shipping = ({ addresses }) => {
 
   const ShopLocation = '195/4 Đ. 30 Tháng 4, Hưng Lợi, Ninh Kiều, Cần Thơ, Việt Nam';
   
-  const { cart } = useContext(CartContext);
+  const { cart, saveOnCheckout } = useContext(CartContext);
 
   const [shippingInfo, setShippinInfo] = useState("");
   const [DeliveryCharges, setDeliveryCharges] = useState("0");
+  
+  const [paymentType, setPaymentType] = useState("delivery");
 
   useEffect(() => {
     // loadGoogleMapsScript();
@@ -31,6 +33,16 @@ const Shipping = ({ addresses }) => {
   };
 
   const setShippingAddress = (address) => {
+
+    const shippingData = {
+      amount: cart?.checkoutInfo?.amount,
+      discount: cart?.checkoutInfo?.discount,
+      totalAmount: cart?.checkoutInfo?.totalAmount,
+      deliveryCharges: DeliveryCharges,
+      shippinginfo: address,
+    };
+
+    saveOnCheckout(shippingData);
     setShippinInfo(address._id);
     console.log("địa chỉ: " + address.street + ", " + address.ward + ", " + address.district + ", " + address.city + ", Việt Nam");
     // calculateDistance(address.street + ", " + address.ward + ", " + address.district + ", " + address.city + ", Việt Nam");
@@ -77,15 +89,20 @@ const Shipping = ({ addresses }) => {
       return toast.error("Please select your shipping address");
     }
     try {
-      const { data } = await axios.post(
+      if (paymentType == "delivery"){
+        window.location.href = "http://localhost:3000/shipping/checkoutresult?delivery";
+      } else {
+        const { data } = await axios.post(
         `${process.env.API_URL}/api/orders/checkout_session`,
         {
           items: cart?.cartItems,
           shippingInfo,
+          totalAmount: (Number(cart?.checkoutInfo?.totalAmount) - Number(DeliveryCharges)) * 1000,
         }
       );
 
       window.location.href = data.url;
+      }
     } catch (error) {
       console.log(error.response);
     }
@@ -146,6 +163,31 @@ const Shipping = ({ addresses }) => {
                   >
                     Trở về
                   </Link>
+                  <div class="relative">
+                    <select
+                      class="block appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                      name="category"
+                      value={paymentType}
+                      onChange={(e) => setPaymentType(e.target.value)}
+                      required
+                    >
+                      {["delivery", "vnpay"].map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                    </select>
+                    <i class="absolute inset-y-0 right-0 p-2 text-gray-400">
+                      <svg
+                        width="22"
+                        height="22"
+                        class="fill-current"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M7 10l5 5 5-5H7z"></path>
+                      </svg>
+                    </i>
+                  </div>
                   <a
                     className="px-5 py-2 inline-block text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 cursor-pointer"
                     onClick={checkoutHandler}

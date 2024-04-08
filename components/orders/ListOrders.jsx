@@ -3,22 +3,8 @@
 import React, { useContext, useEffect } from "react";
 import OrderItem from "./OrderItem";
 import CustomPagination from "../layouts/CustomPagination";
-import CartContext from "@/context/CartContext";
-import { useSearchParams, useRouter } from "next/navigation";
 
 const ListOrders = ({ orders }) => {
-  const { clearCart } = useContext(CartContext);
-  const params = useSearchParams();
-  const router = useRouter();
-
-  const orderSuccess = params.get("order_success");
-
-  useEffect(() => {
-    if (orderSuccess === "true") {
-      clearCart();
-      router.replace("/me/orders");
-    }
-  }, []);
 
   return (
     <>

@@ -7,11 +7,28 @@ import { createContext, useState } from "react";
 const OrderContext = createContext();
 
 export const OrderProvider = ({ children }) => {
+
   const [error, setError] = useState(null);
   const [updated, setUpdated] = useState(false);
   const [canReview, setCanReview] = useState(false);
 
   const router = useRouter();
+
+  const newOrder = async (order) => {
+
+    console.log("do new Order");
+
+    try {
+      const { data } = await axios.post(
+        `${process.env.API_URL}/api/orders`,
+        order
+      );
+
+    } catch (error) {
+      setError(error?.response?.data?.message);
+    }
+
+  };
 
   const updateOrder = async (id, orderData) => {
     try {
@@ -71,6 +88,7 @@ export const OrderProvider = ({ children }) => {
         updateOrder,
         deleteOrder,
         canUserReview,
+        newOrder,
 
         clearErrors,
       }}

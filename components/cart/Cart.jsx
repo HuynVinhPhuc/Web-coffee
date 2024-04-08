@@ -30,13 +30,15 @@ const Cart = () => {
 
     const discountAmount = cart?.cartItems?.reduce((acc, item) => acc + item.quantity * item.price * item.discount / 100, 0);
 
-    const totalAmount = (Number(amountWithoutDiscount) + Number(discountAmount));
+    const totalAmount = (Number(amountWithoutDiscount) - Number(discountAmount));
 
     const checkoutHandler = () => {
         const data = {
           amount: amountWithoutDiscount,
           discount: discountAmount,
           totalAmount,
+          deliveryCharges: 0,
+          shippinginfo :"",
         };
     
         saveOnCheckout(data);
@@ -157,7 +159,7 @@ const Cart = () => {
                                         </li>
                                         <li className="text-lg font-bold border-t flex justify-between mt-3 pt-3">
                                             <span>Tổng tiền:</span>
-                                            <span>{totalAmount.toFixed(0)}.000 VNĐ</span>
+                                            <span>{totalAmount.toFixed(0).toLocaleString()}.000 VNĐ</span>
                                         </li>
                                     </ul>
 

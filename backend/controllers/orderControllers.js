@@ -1,9 +1,18 @@
 import getRawBody from "raw-body";
-import Stripe from "stripe";
 import Order from "../models/order";
 import APIFilters from "../utils/APIFilters";
 import ErrorHandler from "../utils/errorHandler";
-const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
+import moment from "moment/moment";
+import queryString from "query-string";
+
+export const newOrder = async (req, res) => {
+  req.body.user = req.user._id;
+
+  const order = await Order.create(req.body);
+  res.status(201).json({
+    order,
+  });
+};
 
 export const getOrders = async (req, res) => {
   const resPerPage = 2;
@@ -101,107 +110,64 @@ export const canReview = async (req, res) => {
   });
 };
 
-export const checkoutSession = async (req, res) => {
-
-  const line_items = body?.items?.map((item) => {
-    return {
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: item.name,
-          images: [item.image],
-          metadata: { productId: item.product },
-        },
-        unit_amount: item.price * 100,
-      },
-      tax_rates: ["txr_1OuzQXA1vloyhzErnno5i10n"],
-      quantity: item.quantity,
-    };
-  });
-
-  const shippingInfo = body?.shippingInfo;
-
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    success_url: `${process.env.API_URL}/me/orders?order_success=true`,
-    cancel_url: `${process.env.API_URL}`,
-    customer_email: req?.user?.email,
-    client_reference_id: req?.user?._id,
-    mode: "payment",
-    metadata: { shippingInfo },
-    shipping_options: [
-      {
-        shipping_rate: "shr_1OuzO0A1vloyhzEreyRR10jC",
-      },
-    ],
-    line_items,
-  });
-
+export const checkoutSession = async (req, res) => {  
+    process.env.TZ = 'Asia/Ho_Chi_Minh';
+    
+    let date = new Date();
+    let createDate = moment(date).format('YYYYMMDDHHmmss');
+    
+    let ipAddr = req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress;
+    
+    let vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+    let orderId = moment(date).format('DDHHmmss');
+    let amount = req.body.totalAmount;  
+    let bankCode = null;
+    
+    let currCode = 'VND';
+    let vnp_Params = {};
+    vnp_Params['vnp_Version'] = '2.1.0';
+    vnp_Params['vnp_Command'] = 'pay';
+    vnp_Params['vnp_TmnCode'] = "J1OKOHER";
+    vnp_Params['vnp_Locale'] = "vn";
+    vnp_Params['vnp_CurrCode'] = currCode;
+    vnp_Params['vnp_TxnRef'] = orderId;
+    vnp_Params['vnp_OrderInfo'] = 'Thanhtoan:' + orderId;
+    vnp_Params['vnp_OrderType'] = 'other';
+    vnp_Params['vnp_Amount'] = amount * 100;
+    vnp_Params['vnp_ReturnUrl'] = "http://localhost:3000/shipping/checkoutresult";
+    vnp_Params['vnp_IpAddr'] = ipAddr;
+    vnp_Params['vnp_CreateDate'] = createDate;
+    if(bankCode !== null && bankCode !== ''){
+        vnp_Params['vnp_BankCode'] = bankCode;
+    }
+    vnp_Params = sortObject(vnp_Params);
+    let querystring = require('qs');
+    let signData = queryString.stringify(vnp_Params, { encode: false });
+    let crypto = require("crypto");     
+    let hmac = crypto.createHmac("sha512", "XAOQEIVKRFMDFEDZERKJJJXTPRMYFDYU");
+    let signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");
+    vnp_Params['vnp_SecureHash'] = signed;
+    vnpUrl += '?' + querystring.stringify(vnp_Params, { encode: false });
+    res.status(200).json({
+      url: vnpUrl,
+    });
 };
 
-async function getCartItems(line_items) {
-  return new Promise((resolve, reject) => {
-    let cartItems = [];
-
-    line_items?.data?.forEach(async (item) => {
-      const product = await stripe.products.retrieve(item.price.product);
-      const productId = product.metadata.productId;
-
-      cartItems.push({
-        product: productId,
-        name: product.name,
-        price: item.price.unit_amount_decimal / 100,
-        quantity: item.quantity,
-        image: product.images[0],
-      });
-
-      if (cartItems.length === line_items?.data.length) {
-        resolve(cartItems);
+function sortObject(obj) {
+  var sorted = {};
+  var str = [];
+  var key;
+  for (key in obj){
+      if (obj.hasOwnProperty(key)) {
+      str.push(encodeURIComponent(key));
       }
-    });
-  });
-}
-
-export const webhook = async (req, res) => {
-  try {
-    const rawBody = await getRawBody(req);
-    const signature = req.headers["stripe-signature"];
-
-    const event = stripe.webhooks.constructEvent(
-      rawBody,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET
-    );
-
-    if (event.type === "checkout.session.completed") {
-      const session = event.data.object;
-
-      const line_items = await stripe.checkout.sessions.listLineItems(
-        event.data.object.id
-      );
-
-      const orderItems = await getCartItems(line_items);
-      const userId = session.client_reference_id;
-      const amountPaid = session.amount_total / 100;
-
-      const paymentInfo = {
-        id: session.payment_intent,
-        status: session.payment_status,
-        amountPaid,
-        taxPaid: session.total_details.amount_tax / 100,
-      };
-
-      const orderData = {
-        user: userId,
-        shippingInfo: session.metadata.shippingInfo,
-        paymentInfo,
-        orderItems,
-      };
-
-      const order = await Order.create(orderData);
-      res.status(201).json({ success: true });
-    }
-  } catch (error) {
-    console.log(error);
   }
+  str.sort();
+  for (key = 0; key < str.length; key++) {
+      sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
+  }
+  return sorted;
 };

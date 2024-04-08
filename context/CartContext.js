@@ -68,11 +68,13 @@ export const CartProvider = ({ children }) => {
     setCartToState();
   };
 
-  const saveOnCheckout = ({ amount, discount, totalAmount }) => {
+  const saveOnCheckout = ({ amount, discount, totalAmount, deliveryCharges, shippinginfo }) => {
     const checkoutInfo = {
       amount,
       discount,
       totalAmount,
+      deliveryCharges,
+      shippinginfo,
     };
 
     const newCart = { ...cart, checkoutInfo };
