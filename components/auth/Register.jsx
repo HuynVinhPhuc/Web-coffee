@@ -12,6 +12,8 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -21,8 +23,12 @@ const Register = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    registerUser({ name, email, password });
+    if (!emailPattern.test(email)) {
+      toast.error("Invalid email");
+      return;
+    } else {
+      registerUser({ name, email, password });
+    }
   };
 
   return (
@@ -31,14 +37,14 @@ const Register = () => {
       className="mt-10 mb-20 p-4 md:p-7 mx-auto rounded bg-white shadow-lg"
     >
       <form onSubmit={submitHandler}>
-        <h2 className="mb-5 text-2xl font-semibold">Register Account</h2>
+        <h2 className="mb-5 text-2xl font-semibold">Đăng ký tài khoản</h2>
 
         <div className="mb-4">
-          <label className="block mb-1"> Full Name </label>
+          <label className="block mb-1"> Họ tên đầy đủ </label>
           <input
             className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
             type="text"
-            placeholder="Type your name"
+            placeholder="Nhập họ tên đầy đủ"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -50,19 +56,20 @@ const Register = () => {
           <input
             className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
             type="text"
-            placeholder="Type your email"
+            placeholder="Nhập địa chỉ email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           />
         </div>
 
         <div className="mb-4">
-          <label className="block mb-1"> Password </label>
+          <label className="block mb-1"> Mật khẩu </label>
           <input
             className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
             type="password"
-            placeholder="Type your password"
+            placeholder="Nhập mật khẩu"
             minLength={6}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -74,15 +81,15 @@ const Register = () => {
           type="submit"
           className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
         >
-          Register
+          Đăng ký
         </button>
 
         <hr className="mt-4" />
 
         <p className="text-center mt-5">
-          Already have an account?
+          Đã có tài khoản ?{" "}
           <Link href="/login" className="text-blue-500">
-            Sign in
+            Đăng nhập
           </Link>
         </p>
       </form>
