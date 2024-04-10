@@ -17,7 +17,7 @@ function ImageSlider() {
               delay: 3500,
               disableOnInteraction: false,
             }}
-            navigation
+            navigation={false}
             pagination={{ type: "fraction" }}
             onSwiper={(swiper) => console.log(swiper)}
             className="h-full w-full rounded-lg"
