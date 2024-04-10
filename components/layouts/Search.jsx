@@ -33,10 +33,9 @@ const Search = () => {
       />
       <button
         type="button"
-        className="px-4 py-2 inline-block text-white border border-transparent bg-blue-600 text-white rounded-md hover:bg-blue-700"
+        className="px-4 py-2 inline-block border border-transparent bg-blue-600 text-white rounded-md hover:bg-blue-700"
         onClick={submitHandler}
       >
-        {/* Tìm kiếm */}
         <i className="fa fa-magnifying-glass"></i>
       </button>
     </form>

@@ -72,7 +72,9 @@ const OrderItem = ({ order }) => {
             <figcaption className="ml-3">
               <p>{item.name.substring(0, 35)}</p>
               <p className="mt-1 font-semibold">
-                {item.quantity}x = ${item.price * item.quantity}
+                {item.quantity}x ={" "}
+                {+(item.price * item.quantity).toFixed(0).toLocaleString()}
+                .000 VNĐ
               </p>
             </figcaption>
           </figure>

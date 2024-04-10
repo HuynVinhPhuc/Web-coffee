@@ -78,7 +78,7 @@ const Filters = () => {
       {filterResponesive && (
         <div className="lg:hidden">
           <div className="md:block px-6 py-4 border border-gray-200 bg-white rounded shadow-sm">
-            <h3 className="font-semibold mb-2">Giá (VNĐ)</h3>
+            <h3 className="font-semibold mb-2">Giá (nghìn VNĐ)</h3>
             <div className="grid md:grid-cols-3 gap-x-2">
               <div className="mb-4">
                 <input
@@ -243,7 +243,7 @@ const Filters = () => {
           <i className="fa fa-filter pr-2" />
           Lọc
         </p>
-        <h3 className="font-semibold mb-2">Giá (VNĐ)</h3>
+        <h3 className="font-semibold mb-2">Giá (nghìn VNĐ)</h3>
         <div className="grid md:grid-cols-3 gap-x-2">
           <div className="mb-4">
             <input

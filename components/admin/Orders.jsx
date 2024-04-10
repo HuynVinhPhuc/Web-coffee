@@ -21,7 +21,7 @@ const Orders = ({ orders }) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <h1 className="text-3xl my-5 ml-4 font-bold">
-        {orders?.ordersCount} Orders
+        {orders?.ordersCount} Đơn hàng
       </h1>
       <table className="w-full text-sm text-left">
         <thead className="text-l text-gray-700 uppercase">
@@ -30,13 +30,13 @@ const Orders = ({ orders }) => {
               ID
             </th>
             <th scope="col" className="px-6 py-3">
-              Amount Paid
+              Tổng tiền
             </th>
             <th scope="col" className="px-6 py-3">
-              Status
+              Trạng thái
             </th>
             <th scope="col" className="px-6 py-3">
-              Actions
+              Hành động
             </th>
           </tr>
         </thead>
@@ -44,7 +44,9 @@ const Orders = ({ orders }) => {
           {orders?.orders?.map((order) => (
             <tr className="bg-white">
               <td className="px-6 py-2">{order?._id}</td>
-              <td className="px-6 py-2">${order?.totalAmount}</td>
+              <td className="px-6 py-2">
+                {(order?.totalAmount).toLocaleString()}.000 VNĐ
+              </td>
               <td className="px-6 py-2">{order?.orderStatus}</td>
               <td className="px-6 py-2">
                 <div>

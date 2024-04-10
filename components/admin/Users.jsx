@@ -31,7 +31,7 @@ const Users = ({ data }) => {
               Tên người dùng
             </th>
             <th scope="col" className="px-6 py-3">
-              Email
+              Địa chỉ Email
             </th>
             <th scope="col" className="px-6 py-3">
               Vai trò

@@ -89,7 +89,7 @@ const ProductDetails = ({ product }) => {
               <h2 className="font-semibold text-2xl mb-4">{product?.name}</h2>
 
               <div className="flex flex-wrap items-center space-x-2 mb-2">
-                <div className="ratings">
+                <div className="ratings mb-2">
                   <StarRatings
                     rating={product?.ratings}
                     starRatedColor="#ffb829"
@@ -110,7 +110,9 @@ const ProductDetails = ({ product }) => {
                   <circle cx="3" cy="3" r="3" fill="#DBDBDB" />
                 </svg>
 
-                <span className="text-green-500">Verified</span>
+                <span className="text-green-500">
+                  <i className="fa fa-circle-check" />
+                </span>
               </div>
 
               {product?.discount !== "0" ? (
@@ -178,7 +180,7 @@ const ProductDetails = ({ product }) => {
 
           <div className="font-semibold">
             <h1 className="text-gray-500 review-title mb-6 mt-10 text-2xl">
-              Other Customers Reviews
+              Những đánh giá khác
             </h1>
             <Reviews reviews={product?.reviews} />
           </div>

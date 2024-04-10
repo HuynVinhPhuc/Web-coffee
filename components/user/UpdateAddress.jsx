@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const UpdateAddress = ({ id, address }) => {
-
   const {
     error,
     updated,
@@ -22,7 +21,7 @@ const UpdateAddress = ({ id, address }) => {
   const [city, setCity] = useState(address.city);
   const [district, setDistrict] = useState(address.district);
   const [ward, setWard] = useState(address.ward);
-  const [phoneNo, setPhoneNo] = useState(address.phoneNo);  
+  const [phoneNo, setPhoneNo] = useState(address.phoneNo);
   const [street, setStreet] = useState(address.street);
 
   const [cities, setCities] = useState([]);
@@ -30,17 +29,18 @@ const UpdateAddress = ({ id, address }) => {
   const [wards, setWards] = useState([]);
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json');
+        const response = await axios.get(
+          "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
+        );
         setCities(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  
+
     if (updated) {
       toast.success("Address Updated");
       setUpdated(false);
@@ -50,11 +50,10 @@ const UpdateAddress = ({ id, address }) => {
       toast.error(error);
       clearErrors();
     }
-    
   }, [error, updated]);
 
   useEffect(() => {
-    if(cities.find(selectedCity => selectedCity.Name === city)){
+    if (cities.find((selectedCity) => selectedCity.Name === city)) {
       handleCityChange(city);
       handleDistrictChange(district);
       setWard(ward);
@@ -64,10 +63,10 @@ const UpdateAddress = ({ id, address }) => {
   const handleCityChange = (Name) => {
     const cityName = Name;
     setCity(cityName);
-    setDistrict('');
-    setWard('');
-    if (cityName !== '') {
-      const selectedCityData = cities.find(city => city.Name === cityName);
+    setDistrict("");
+    setWard("");
+    if (cityName !== "") {
+      const selectedCityData = cities.find((city) => city.Name === cityName);
       setDistricts(selectedCityData.Districts);
     } else {
       setDistricts([]);
@@ -78,10 +77,14 @@ const UpdateAddress = ({ id, address }) => {
   const handleDistrictChange = (Name) => {
     const districtName = Name;
     setDistrict(districtName);
-    setWard('');
-    if (districtName !== '') {
-      const selectedCityData = cities.find(selectedCity => selectedCity.Name === city);
-      const selectedDistrictData = selectedCityData.Districts.find(district => district.Name === districtName);
+    setWard("");
+    if (districtName !== "") {
+      const selectedCityData = cities.find(
+        (selectedCity) => selectedCity.Name === city
+      );
+      const selectedDistrictData = selectedCityData.Districts.find(
+        (district) => district.Name === districtName
+      );
       setWards(selectedDistrictData.Wards);
     } else {
       setWards([]);
@@ -120,7 +123,7 @@ const UpdateAddress = ({ id, address }) => {
               >
                 <form onSubmit={submitHandler}>
                   <h2 className="mb-5 text-2xl font-semibold">
-                    Update Address
+                    Cập nhật địa chỉ
                   </h2>
 
                   <div className="mb-4 md:col-span-2">
@@ -141,8 +144,8 @@ const UpdateAddress = ({ id, address }) => {
                         className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                         value={city}
                         onChange={(e) => {
-                          setCity(e.target.value)
-                          handleCityChange(e.target.value)
+                          setCity(e.target.value);
+                          handleCityChange(e.target.value);
                         }}
                       >
                         {cities.map((city) => (
@@ -159,8 +162,8 @@ const UpdateAddress = ({ id, address }) => {
                         className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                         value={district}
                         onChange={(e) => {
-                          setDistrict(e.target.value)
-                          handleDistrictChange(e.target.value)
+                          setDistrict(e.target.value);
+                          handleDistrictChange(e.target.value);
                         }}
                       >
                         {districts.map((district) => (
@@ -216,7 +219,7 @@ const UpdateAddress = ({ id, address }) => {
                       type="submit"
                       className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
                     >
-                      Update
+                      Cập nhật
                     </button>
 
                     <button
@@ -224,7 +227,7 @@ const UpdateAddress = ({ id, address }) => {
                       className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700"
                       onClick={deleteHandler}
                     >
-                      Delete
+                      Xoá
                     </button>
                   </div>
                 </form>

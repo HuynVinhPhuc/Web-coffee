@@ -15,7 +15,7 @@ export const newOrder = async (req, res) => {
 };
 
 export const getOrders = async (req, res) => {
-  const resPerPage = 2;
+  const resPerPage = 5;
   const ordersCount = await Order.countDocuments();
 
   const apiFilters = new APIFilters(Order.find(), req.query).pagination(
@@ -46,7 +46,7 @@ export const getOrder = async (req, res) => {
 };
 
 export const myOrders = async (req, res) => {
-  const resPerPage = 2;
+  const resPerPage = 3;
   const ordersCount = await Order.countDocuments();
 
   const apiFilters = new APIFilters(Order.find(), req.query).pagination(

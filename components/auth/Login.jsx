@@ -43,7 +43,7 @@ const Login = () => {
         <h2 className="mb-5 text-2xl font-semibold">Đăng nhập</h2>
 
         <div className="mb-4">
-          <label className="block mb-1"> Email </label>
+          <label className="block mb-1"> Địa chỉ Email </label>
           <input
             className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
             type="text"

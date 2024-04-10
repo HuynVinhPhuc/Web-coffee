@@ -34,7 +34,8 @@ const UpdateOrder = ({ order }) => {
       <header className="lg:flex justify-between mb-4">
         <div className="mb-4 lg:mb-0">
           <p className="font-semibold">
-            <span>Order ID: {order?._id} </span>
+            ID đơn hàng:
+            <span className="text-[#666] font-normal"> {order?._id} </span>
             {order?.orderStatus == "Processing" ? (
               <span className="text-red-500">
                 • {order?.orderStatus.toUpperCase()}
@@ -47,35 +48,55 @@ const UpdateOrder = ({ order }) => {
           </p>
           <p className="text-gray-500">{order?.createAt?.substring(0, 10)} </p>
         </div>
+        <p className="font-semibold ">
+          Phương thức thanh toán:{" "}
+          <span className="font-normal text-[#666]">
+            {order?.paymentInfo === "Thanh toán khi nhận hàng" ? (
+              <span className="text-yellow-500">
+                {order?.paymentInfo.toUpperCase()}
+              </span>
+            ) : order?.paymentInfo === "Thanh toán không thành công" ? (
+              <span className="text-red-500">
+                {order?.paymentInfo.toUpperCase()}
+              </span>
+            ) : (
+              <span className="text-green-500">
+                {order?.paymentInfo.toUpperCase()}
+              </span>
+            )}
+            .
+          </span>
+        </p>
       </header>
       <div className="grid md:grid-cols-3 gap-2">
         <div>
-          <p className="text-gray-400 mb-1">Person</p>
+          <p className="text-gray-400 mb-1">Người nhận</p>
           <ul className="text-gray-600">
             <li>{order?.user?.name}</li>
-            <li>Phone: {order?.shippingInfo?.phoneNo}</li>
-            <li>Email: {order?.user?.email}</li>
+            <li>Số điện thoại: {order?.shippingInfo?.phoneNo}</li>
+            <li>Địa chỉ email: {order?.user?.email}</li>
           </ul>
         </div>
         <div>
-          <p className="text-gray-400 mb-1">Delivery address</p>
+          <p className="text-gray-400 mb-1">Địa chỉ giao hàng</p>
           <ul className="text-gray-600">
-            <li>{order?.shippingInfo?.street}</li>
             <li>
-              {order?.shippingInfo?.city}, {order?.shippingInfo?.state},{" "}
-              {order?.shippingInfo?.zipCode}
+              {order?.shippingInfo?.city}, {order?.shippingInfo?.district},{" "}
+              {order?.shippingInfo?.ward}
             </li>
-            <li>{order?.shippingInfo?.country}</li>
+            <li>{order?.shippingInfo?.street}</li>
           </ul>
         </div>
         <div>
-          <p className="text-gray-400 mb-1">Payment</p>
+          <p className="text-gray-400 mb-1">Thanh toán</p>
           <ul className="text-gray-600">
             <li className="text-green-400">
               {order?.paymentInfo?.status?.toUpperCase()}
             </li>
-            <li>Tax paid: ${order?.deliveryCharges}</li>
-            <li>Total paid: ${order?.totalAmount}</li>
+            <li>
+              Phí vận chuyển: {order?.deliveryCharges.toLocaleString()}.000 VNĐ
+            </li>
+            <li>Tổng tiền: {order?.totalAmount.toLocaleString()}.000 VNĐ</li>
           </ul>
         </div>
       </div>
@@ -98,7 +119,8 @@ const UpdateOrder = ({ order }) => {
             <figcaption className="ml-3">
               <p>{item.name.substring(0, 35)}</p>
               <p className="mt-1 font-semibold">
-                {item.quantity}x = ${item.price * item.quantity}
+                {item.quantity}x ={" "}
+                {(item.price * item.quantity).toLocaleString()}.000 VNĐ
               </p>
             </figcaption>
           </figure>
@@ -108,7 +130,7 @@ const UpdateOrder = ({ order }) => {
       <hr />
 
       <div class="my-8">
-        <label class="block mb-3"> Update Order Status </label>
+        <label class="block mb-3"> Cập nhật trạng thái đơn hàng </label>
         <div class="relative">
           <select
             class="block appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
@@ -141,7 +163,7 @@ const UpdateOrder = ({ order }) => {
         className="mb-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
         onClick={() => submitHandler()}
       >
-        Update
+        Cập nhật
       </button>
     </article>
   );

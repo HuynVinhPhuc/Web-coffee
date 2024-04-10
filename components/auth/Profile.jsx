@@ -21,7 +21,7 @@ const Profile = ({ addresses }) => {
         <figcaption>
           <h5 className="font-semibold text-lg">{user?.name}</h5>
           <p>
-            <b>Email:</b> {user?.email} | <b>Ngày tham gia: </b>
+            <b>Địa chỉ Email:</b> {user?.email} | <b>Ngày tham gia: </b>
             {user?.createdAt.substring(0, 10)}
           </p>
         </figcaption>

@@ -16,7 +16,7 @@ const UserAddresses = ({ addresses }) => {
               {address.name} <br /> {address.city}, {address.district},{" "}
               {address.ward}, {address.street}
               <br />
-              Phone no: {address.phoneNo}
+              Số điện thoại: {address.phoneNo}
             </p>
           </figcaption>
         </figure>

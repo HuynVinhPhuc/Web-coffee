@@ -15,10 +15,20 @@ const Sidebar = () => {
   return (
     <aside className="md:w-1/3 lg:w-1/4 px-4">
       <ul className="sidebar">
+        {user?.role === "admin" ? (
+          <>
+            <div className="font-semibold text-2xl mb-3">Admin</div>{" "}
+          </>
+        ) : (
+          <>
+            <div className="font-semibold text-2xl mb-3">
+              Thông tin chi tiết
+            </div>{" "}
+          </>
+        )}
         {user?.role === "admin" && (
           <>
             <li>
-              <div className="font-semibold text-2xl mb-3">Admin</div>{" "}
               <Link
                 href="/admin/products/new"
                 className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
@@ -62,7 +72,13 @@ const Sidebar = () => {
         )}
 
         <li>
-          {" "}
+          {user?.role === "admin" ? (
+            <>
+              <div className="font-semibold text-2xl mb-3">Thông tin chung</div>{" "}
+            </>
+          ) : (
+            <></>
+          )}{" "}
           <Link
             href="/me"
             className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"

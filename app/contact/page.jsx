@@ -17,7 +17,7 @@ const Contact = () => {
                 <br />
                 <div className="text-[#666]">
                   <p>
-                    785 15h Street, Office 478 <br /> Berlin, De 81566
+                    178/9B Lý Chính Thắng <br /> Hưng Lợi, Ninh Kiều, Cần Thơ
                   </p>
                   <br />
                   <div>

@@ -20,14 +20,14 @@ const Reviews = ({ reviews }) => {
               <p>
                 {review?.user?.name}
                 <time className="block text-sm text-gray-500 dark:text-gray-400">
-                  Posted on: {review?.createdAt.substring(0, 10)}
+                  Ngày đăng: {review?.createdAt.substring(0, 10)}
                 </time>
               </p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center space-x-2 mb-2">
-            <div className="ratings">
+            <div className="ratings mb-2">
               <StarRatings
                 rating={review?.rating}
                 starRatedColor="#ffb829"
