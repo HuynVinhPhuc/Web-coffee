@@ -8,44 +8,51 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const NewAddress = () => {
-  const { error, addNewAddress, clearErrors } = useContext(AuthContext);
+  const { error, addNewAddress, clearErrors, updated, setUpdated } =
+    useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [district, setDistrict] = useState("");
   const [ward, setWard] = useState("");
-  const [phoneNo, setPhoneNo] = useState("");  
+  const [phoneNo, setPhoneNo] = useState("");
   const [street, setStreet] = useState("");
-  
+
   const [cities, setCities] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json');
+        const response = await axios.get(
+          "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
+        );
         setCities(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
     fetchData();
+
+    if (updated) {
+      setUpdated(false);
+      toast.success("Thêm địa chỉ thành công !!!");
+    }
 
     if (error) {
       toast.error(error);
       clearErrors();
     }
-  }, [error]);
+  }, [error, updated]);
 
   const handleCityChange = (e) => {
     const cityName = e.target.value;
     setCity(cityName);
-    setDistrict('');
-    setWard('');
-    if (cityName !== '') {
-      const selectedCityData = cities.find(city => city.Name === cityName);
+    setDistrict("");
+    setWard("");
+    if (cityName !== "") {
+      const selectedCityData = cities.find((city) => city.Name === cityName);
       setDistricts(selectedCityData.Districts);
     } else {
       setDistricts([]);
@@ -56,10 +63,14 @@ const NewAddress = () => {
   const handleDistrictChange = (e) => {
     const districtName = e.target.value;
     setDistrict(districtName);
-    setWard('');
-    if (districtName !== '') {
-      const selectedCityData = cities.find(selectedCity => selectedCity.Name === city);
-      const selectedDistrictData = selectedCityData.Districts.find(district => district.Name === districtName);
+    setWard("");
+    if (districtName !== "") {
+      const selectedCityData = cities.find(
+        (selectedCity) => selectedCity.Name === city
+      );
+      const selectedDistrictData = selectedCityData.Districts.find(
+        (district) => district.Name === districtName
+      );
       setWards(selectedDistrictData.Wards);
     } else {
       setWards([]);
@@ -115,8 +126,8 @@ const NewAddress = () => {
                         className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                         value={city}
                         onChange={(e) => {
-                          setCity(e.target.value)
-                          handleCityChange(e)
+                          setCity(e.target.value);
+                          handleCityChange(e);
                         }}
                       >
                         <option value="">Chọn tỉnh thành</option>
@@ -134,8 +145,8 @@ const NewAddress = () => {
                         className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
                         value={district}
                         onChange={(e) => {
-                          setDistrict(e.target.value)
-                          handleDistrictChange(e)
+                          setDistrict(e.target.value);
+                          handleDistrictChange(e);
                         }}
                       >
                         <option value="">Chọn quận huyện</option>

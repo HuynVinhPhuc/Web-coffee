@@ -5,8 +5,15 @@ import React, { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 
 const UpdateProfile = () => {
-  const { user, error, loading, updateProfile, clearErrors } =
-    useContext(AuthContext);
+  const {
+    user,
+    error,
+    loading,
+    updateProfile,
+    clearErrors,
+    updated,
+    setUpdated,
+  } = useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,11 +27,16 @@ const UpdateProfile = () => {
       setAvatarPreview(user?.avatar?.url);
     }
 
+    if (updated) {
+      setUpdated(false);
+      toast.success("Cập nhật thông tin cá nhân thành công !!!");
+    }
+
     if (error) {
       toast.error(error);
       clearErrors();
     }
-  }, [error, user]);
+  }, [error, user, updated]);
 
   const submitHandler = (e) => {
     e.preventDefault();

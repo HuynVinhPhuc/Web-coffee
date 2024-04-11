@@ -5,7 +5,7 @@ import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 
 const NewProduct = () => {
-  const { newProduct } = useContext(ProductContext);
+  const { newProduct, updated, setUpdated } = useContext(ProductContext);
 
   const [product, setProduct] = useState({
     name: "",
@@ -31,6 +31,13 @@ const NewProduct = () => {
     "Xay hạt nhỏ",
     "Bột cà phê",
   ];
+
+  useEffect(() => {
+    if (updated) {
+      toast.success("Tạo sản phẩm thành công !!!");
+      setUpdated(false);
+    }
+  }, [updated]);
 
   const submitHandler = (e) => {
     e.preventDefault();

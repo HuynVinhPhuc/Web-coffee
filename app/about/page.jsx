@@ -45,6 +45,7 @@ const About = () => {
           </p>
           <br />
           <p className="font-semibold text-lg">Sứ mệnh:</p>
+          <br />
           <div className="text-[#666]">
             <p>
               - ​Cung cấp cho khách hàng những sản phẩm cà phê chất lượng cao,

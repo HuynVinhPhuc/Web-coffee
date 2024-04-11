@@ -2,13 +2,12 @@ import React from "react";
 import Image from "next/image";
 
 const OrderItem = ({ order }) => {
-  console.log(order);
   return (
     <article className="p-3 lg:p-5 mb-5 bg-white border border-blue-600 rounded-md">
       <header className="lg:flex justify-between mb-4">
         <div className="mb-4 lg:mb-0">
           <p className="font-semibold">
-            <span>Order ID: {order?._id} </span>
+            <span>ID đơn hàng: {order?._id} </span>
             {order?.orderStatus == "Processing" ? (
               <span className="text-red-500">
                 • {order?.orderStatus.toUpperCase()}
@@ -19,37 +18,58 @@ const OrderItem = ({ order }) => {
               </span>
             )}
           </p>
+          <p className="font-semibold ">
+            Phương thức thanh toán:{" "}
+            <span className="font-normal text-[#666]">
+              {order?.paymentInfo === "Thanh toán khi nhận hàng" ? (
+                <span className="text-yellow-500">
+                  {order?.paymentInfo.toUpperCase()}
+                </span>
+              ) : order?.paymentInfo === "Thanh toán không thành công" ? (
+                <span className="text-red-500">
+                  {order?.paymentInfo.toUpperCase()}
+                </span>
+              ) : (
+                <span className="text-green-500">
+                  {order?.paymentInfo.toUpperCase()}
+                </span>
+              )}
+              .
+            </span>
+          </p>
           <p className="text-gray-500">{order?.createAt?.substring(0, 10)} </p>
         </div>
       </header>
       <div className="grid md:grid-cols-3 gap-2">
         <div>
-          <p className="text-gray-400 mb-1">Person</p>
+          <p className="text-gray-400 mb-1">Người nhận</p>
           <ul className="text-gray-600">
             <li>{order?.user?.name}</li>
-            <li>Phone: {order?.shippingInfo?.phoneNo}</li>
-            <li>Email: {order?.user?.email}</li>
+            <li>Số điện thoại: {order?.shippingInfo?.phoneNo}</li>
+            <li>Địa chỉ Email: {order?.user?.email}</li>
           </ul>
         </div>
         <div>
-          <p className="text-gray-400 mb-1">Delivery address</p>
+          <p className="text-gray-400 mb-1">Địa chỉ giao hàng</p>
           <ul className="text-gray-600">
-            <li>{order?.shippingInfo?.street}</li>
             <li>
-              {order?.shippingInfo?.city}, {order?.shippingInfo?.state},{" "}
-              {order?.shippingInfo?.zipCode}
+              {order?.shippingInfo?.city}, {order?.shippingInfo?.district},{" "}
+              {order?.shippingInfo?.ward}
             </li>
-            <li>{order?.shippingInfo?.country}</li>
+            <li>{order?.shippingInfo?.street}</li>
           </ul>
         </div>
         <div>
-          <p className="text-gray-400 mb-1">Payment</p>
+          <p className="text-gray-400 mb-1">Thanh toán</p>
           <ul className="text-gray-600">
             <li className="text-green-400">
               {order?.paymentInfo?.status?.toUpperCase()}
             </li>
-            <li>Tax paid: ${order?.deliveryCharges}</li>
-            <li>Total paid: ${order?.totalAmount}</li>
+            <li>
+              Phí vận chuyển: {(+order?.deliveryCharges).toLocaleString()}.000
+              VNĐ
+            </li>
+            <li>Tổng tiền: {(+order?.totalAmount).toLocaleString()}.000 VNĐ</li>
           </ul>
         </div>
       </div>
@@ -73,7 +93,14 @@ const OrderItem = ({ order }) => {
               <p>{item.name.substring(0, 35)}</p>
               <p className="mt-1 font-semibold">
                 {item.quantity}x ={" "}
-                {+(item.price * item.quantity).toFixed(0).toLocaleString()}
+                {
+                  +(
+                    (item.price - item.price * (item.discount / 100)) *
+                    item.quantity
+                  )
+                    .toFixed(0)
+                    .toLocaleString()
+                }
                 .000 VNĐ
               </p>
             </figcaption>

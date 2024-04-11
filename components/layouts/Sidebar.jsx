@@ -74,7 +74,7 @@ const Sidebar = () => {
         <li>
           {user?.role === "admin" ? (
             <>
-              <div className="font-semibold text-2xl mb-3">Thông tin chung</div>{" "}
+              <div className="font-semibold text-2xl my-3">Thông tin chung</div>{" "}
             </>
           ) : (
             <></>

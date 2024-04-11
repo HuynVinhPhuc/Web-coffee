@@ -7,6 +7,7 @@ import Image from "next/image";
 import OrderContext from "@/context/OrderContext";
 import { useRouter } from "next/navigation";
 import moment from "moment";
+import Link from "next/link";
 
 const CheckoutsResult = () => {
   const { cart, clearCart } = useContext(CartContext);
@@ -22,20 +23,37 @@ const CheckoutsResult = () => {
   const { newOrder } = useContext(OrderContext);
 
   useEffect(() => {
-    if (window.location.href.indexOf("delivery") !== -1) {
+    if (window.location.href.indexOf("delivery=true") !== -1) {
       setPaymentOrderInfo("Thanh toán khi nhận hàng");
       setPaymentStatus("Thanh toán khi nhận hàng");
     }
-    if (window.location.href.indexOf("vnp_TransactionStatus=00") !== -1) {
+    if (
+      window.location.href.indexOf("vnp_TransactionStatus") !== -1 ||
+      window.location.href.indexOf("vnpay") !== -1
+    ) {
       setPaymentOrderInfo("Thanh toán trực tuyến");
-      setPaymentStatus("Thanh toán thành công");
+      if (
+        window.location.href.indexOf("vnp_TransactionStatus=00") !== -1 ||
+        window.location.href.indexOf("vnpay=true") !== -1
+      ) {
+        setPaymentStatus("Thanh toán thành công");
+        console.log("do");
+      }
+      if (
+        (window.location.href.indexOf("vnp_TransactionStatus") !== -1 &&
+          window.location.href.indexOf("vnp_TransactionStatus=00") == -1) ||
+        window.location.href.indexOf("vnpay=false") !== -1
+      ) {
+        setPaymentStatus("Thanh toán không thành công");
+      }
     }
 
     if (
       cart?.cartItems !== undefined &&
       userOrder !== null &&
       (window.location.href.indexOf("vnp_TransactionStatus=00") !== -1 ||
-        window.location.href.indexOf("delivery") !== -1) &&
+        window.location.href.indexOf(`delivery=true&userid=${user._id}`) !==
+          -1) &&
       paymentStatus !== "Thanh toán không thành công"
     ) {
       const data = {
@@ -51,8 +69,20 @@ const CheckoutsResult = () => {
 
       newOrder(data);
 
-      router.replace("/shipping/checkoutresult");
+      if (window.location.href.indexOf("vnp_TransactionStatus=00") !== -1) {
+        router.replace("/shipping/checkoutresult?vnpay=true");
+      }
+      if (window.location.href.indexOf("delivery=true") !== -1) {
+        router.replace("/shipping/checkoutresult?delivery=true");
+      }
       //clearCart();
+    }
+
+    if (
+      window.location.href.indexOf("vnp_TransactionStatus") !== -1 &&
+      window.location.href.indexOf("vnp_TransactionStatus=00") == -1
+    ) {
+      router.replace("/shipping/checkoutresult?vnpay=false");
     }
   }, [cart, userOrder]);
 
@@ -109,13 +139,15 @@ const CheckoutsResult = () => {
               <ul className="text-gray-600">
                 <li>
                   Phí vận chuyển:{" "}
-                  {cart?.checkoutInfo?.deliveryCharges.toFixed(0)}
+                  {(+cart?.checkoutInfo?.deliveryCharges).toLocaleString()}
                   .000 VNĐ
                 </li>
                 <li>
                   Tổng tiền:{" "}
-                  {Number(cart?.checkoutInfo?.totalAmount) +
-                    Number(cart?.checkoutInfo?.deliveryCharges.toFixed(0))}
+                  {(
+                    Number(cart?.checkoutInfo?.totalAmount) +
+                    Number(cart?.checkoutInfo?.deliveryCharges)
+                  ).toLocaleString()}
                   .000 VNĐ
                 </li>
               </ul>
@@ -141,12 +173,33 @@ const CheckoutsResult = () => {
                   <p>{item.name.substring(0, 35)}</p>
                   <p className="mt-1 font-semibold">
                     {item.quantity}x ={" "}
-                    {+(item.price * item.quantity).toFixed(0).toLocaleString()}
+                    {
+                      +(
+                        (item.price - item.price * (item.discount / 100)) *
+                        item.quantity
+                      )
+                        .toFixed(0)
+                        .toLocaleString()
+                    }
                     .000 VNĐ
                   </p>
                 </figcaption>
               </figure>
             ))}
+          </div>
+          <div className="flex justify-end">
+            <Link
+              href="/product"
+              className="px-4 py-2 inline-block border border-transparent bg-gray-400 text-white rounded-md hover:bg-gray-500"
+            >
+              Trở về
+            </Link>
+            <Link
+              href="/me/orders"
+              className="mx-4 px-4 py-2 inline-block border border-transparent bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            >
+              Danh sách đơn hàng
+            </Link>
           </div>
         </article>
       </div>

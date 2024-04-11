@@ -42,8 +42,8 @@ const UpdateAddress = ({ id, address }) => {
     fetchData();
 
     if (updated) {
-      toast.success("Address Updated");
       setUpdated(false);
+      toast.success("Cập nhật địa chỉ thành công !!!");
     }
 
     if (error) {

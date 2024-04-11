@@ -2,7 +2,8 @@ import getRawBody from "raw-body";
 import Order from "../models/order";
 import APIFilters from "../utils/APIFilters";
 import ErrorHandler from "../utils/errorHandler";
-import moment from "moment/moment";
+import moment from "moment";
+
 import queryString from "query-string";
 
 export const newOrder = async (req, res) => {

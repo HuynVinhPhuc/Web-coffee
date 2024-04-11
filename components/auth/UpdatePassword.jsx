@@ -5,7 +5,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const UpdatePassword = () => {
-  const { error, updatePassword, clearErrors } = useContext(AuthContext);
+  const { error, updatePassword, clearErrors, updated, setUpdated } =
+    useContext(AuthContext);
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -15,7 +16,11 @@ const UpdatePassword = () => {
       toast.error(error);
       clearErrors();
     }
-  }, [error]);
+    if (updated) {
+      setUpdated(false);
+      toast.success("Cập nhật mật khẩu thành công !!!");
+    }
+  }, [error, updated]);
 
   const submitHandler = (e) => {
     e.preventDefault();

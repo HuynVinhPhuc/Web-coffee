@@ -16,7 +16,7 @@ const UpdateUser = ({ user }) => {
   useEffect(() => {
     if (updated) {
       setUpdated(false);
-      toast.success("User Updated");
+      toast.success("Cập nhật người dùng thành công !!!");
     }
 
     if (error) {

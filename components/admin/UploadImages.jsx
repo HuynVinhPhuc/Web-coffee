@@ -6,8 +6,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const UploadImages = ({ id }) => {
-  const { uploadProductImages, error, loading, updated, clearErrors } =
-    useContext(ProductContext);
+  const {
+    uploadProductImages,
+    error,
+    loading,
+    updated,
+    clearErrors,
+    setUpdated,
+  } = useContext(ProductContext);
 
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
@@ -36,6 +42,10 @@ const UploadImages = ({ id }) => {
     if (error) {
       toast.error(error);
       clearErrors();
+    }
+    if (updated && !loading) {
+      setUpdated(false);
+      toast.success("Tải ảnh lên thành công !!!");
     }
   }, [error, updated]);
 

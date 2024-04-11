@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (data?.user) {
-        router.push("/");
+        router.push("/login");
       }
     } catch (error) {
       setError(error?.response?.data?.message);
@@ -64,6 +64,7 @@ export const AuthProvider = ({ children }) => {
 
       if (data?.user) {
         loadUser();
+        setUpdated(true);
         setLoading(false);
       }
     } catch (error) {
@@ -83,6 +84,7 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (data?.success) {
+        setUpdated(true);
         router.replace("/me");
       }
     } catch (error) {
@@ -102,7 +104,7 @@ export const AuthProvider = ({ children }) => {
 
       if (data?.success) {
         setUpdated(true);
-        router.replace(`/admin/users/${id}`);
+        router.replace(`/admin/users`);
       }
     } catch (error) {
       setError(error?.response?.data?.message);
@@ -147,7 +149,7 @@ export const AuthProvider = ({ children }) => {
 
       if (data?.address) {
         setUpdated(true);
-        router.replace(`/address/${id}`);
+        router.replace(`/me`);
       }
     } catch (error) {
       setError(error?.response?.data?.message);

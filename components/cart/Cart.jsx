@@ -5,7 +5,7 @@ import CartContext from "@/context/CartContext";
 import Link from "next/link";
 
 const Cart = () => {
-  const { addItemToCart, deleteItemFromCart, cart, saveOnCheckout } =
+  const { addItemToCart, deleteItemFromCart, cart, saveOnCheckout, clearCart } =
     useContext(CartContext);
 
   const increaseQty = (cartItem) => {
@@ -37,6 +37,10 @@ const Cart = () => {
   );
 
   const totalAmount = Number(amountWithoutDiscount) - Number(discountAmount);
+
+  const deleteCart = () => {
+    clearCart();
+  };
 
   const checkoutHandler = () => {
     const data = {
@@ -193,6 +197,14 @@ const Cart = () => {
                       <hr className="my-4" />
                     </div>
                   ))}
+                  <div className="flex justify-end mt-4">
+                    <a
+                      className="px-4 py-3 mb-2 inline-block text-lg text-center font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 cursor-pointer"
+                      onClick={deleteCart}
+                    >
+                      Xoá tất cả sản phẩm
+                    </a>
+                  </div>
                 </article>
               </main>
               <aside className="md:w-1/4">

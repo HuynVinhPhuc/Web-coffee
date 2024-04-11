@@ -52,14 +52,14 @@ export const updatePassword = async (req, res, next) => {
   );
 
   if (!isPasswordMatched) {
-    return next(new ErrorHandler("Old password is incorrect", 400));
+    return next(new ErrorHandler("Mật khẩu cũ không chính xác", 400));
   }
 
   user.password = req.body.newPassword;
   await user.save();
 
   res.status(200).json({
-    sucess: true,
+    success: true,
   });
 };
 

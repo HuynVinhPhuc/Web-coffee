@@ -14,7 +14,7 @@ const UpdateOrder = ({ order }) => {
   useEffect(() => {
     if (updated) {
       setUpdated(false);
-      toast.success("Order Updated");
+      toast.success("Đơn hàng cập nhật thành công !!!");
     }
 
     if (error) {
@@ -120,7 +120,15 @@ const UpdateOrder = ({ order }) => {
               <p>{item.name.substring(0, 35)}</p>
               <p className="mt-1 font-semibold">
                 {item.quantity}x ={" "}
-                {(item.price * item.quantity).toLocaleString()}.000 VNĐ
+                {
+                  +(
+                    (item.price - item.price * (item.discount / 100)) *
+                    item.quantity
+                  )
+                    .toFixed(0)
+                    .toLocaleString()
+                }
+                .000 VNĐ
               </p>
             </figcaption>
           </figure>

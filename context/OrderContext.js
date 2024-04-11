@@ -35,7 +35,7 @@ export const OrderProvider = ({ children }) => {
 
       if (data.success) {
         setUpdated(true);
-        router.replace(`/admin/orders/${id}`);
+        router.replace(`/admin/orders`);
       }
     } catch (error) {
       setError(error?.response?.data?.message);

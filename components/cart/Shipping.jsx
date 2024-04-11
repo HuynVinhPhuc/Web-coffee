@@ -6,12 +6,14 @@ import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import BreadCrumbs from "../layouts/BreadCrumbs";
+import AuthContext from "@/context/AuthContext";
 
 const Shipping = ({ addresses }) => {
   const ShopLocation =
     "195/4 Đ. 30 Tháng 4, Hưng Lợi, Ninh Kiều, Cần Thơ, Việt Nam";
 
   const { cart, saveOnCheckout } = useContext(CartContext);
+  const { user } = useContext(AuthContext);
 
   const [shippingInfo, setShippinInfo] = useState("");
   const [DeliveryCharges, setDeliveryCharges] = useState("0");
@@ -101,8 +103,7 @@ const Shipping = ({ addresses }) => {
     }
     try {
       if (paymentType == "delivery") {
-        window.location.href =
-          "http://localhost:3000/shipping/checkoutresult?delivery";
+        window.location.href = `http://localhost:3000/shipping/checkoutresult?delivery=true&userid=${user._id}`;
       } else {
         const { data } = await axios.post(
           `${process.env.API_URL}/api/orders/checkout_session`,

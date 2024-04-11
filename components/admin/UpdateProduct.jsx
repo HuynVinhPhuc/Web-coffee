@@ -20,7 +20,7 @@ const UpdateProduct = ({ data }) => {
 
   useEffect(() => {
     if (updated) {
-      toast.success("Product Updated");
+      toast.success("Cập nhật sản phẩm thành công !!!");
       setUpdated(false);
     }
 
