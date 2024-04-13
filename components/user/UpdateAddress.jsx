@@ -6,6 +6,7 @@ import Sidebar from "../layouts/Sidebar";
 import AuthContext from "@/context/AuthContext";
 import { toast } from "react-toastify";
 import axios from "axios";
+import CloseDialog from "../layouts/CloseDialog";
 
 const UpdateAddress = ({ id, address }) => {
   const {
@@ -27,6 +28,27 @@ const UpdateAddress = ({ id, address }) => {
   const [cities, setCities] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
+
+  const [showDialog, setShowDialog] = useState(false);
+  const [deleteId, setDeleteId] = useState();
+
+  const deleteHandler = (id) => {
+    setDeleteId(id);
+    setShowDialog(true);
+  };
+
+  const confirmDialog = () => {
+    setShowDialog(false);
+    if (deleteId) {
+      deleteAddress(deleteId);
+      console.log("1");
+      setDeleteId(null);
+    }
+  };
+
+  const cancel = () => {
+    setShowDialog(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -104,10 +126,6 @@ const UpdateAddress = ({ id, address }) => {
     };
 
     updateAddress(id, newAddress);
-  };
-
-  const deleteHandler = () => {
-    deleteAddress(id);
   };
 
   return (
@@ -222,19 +240,25 @@ const UpdateAddress = ({ id, address }) => {
                       Cập nhật
                     </button>
 
-                    <button
-                      type="submit"
+                    <a
                       className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700"
-                      onClick={deleteHandler}
+                      onClick={() => deleteHandler(id)}
                     >
                       Xoá
-                    </button>
+                    </a>
                   </div>
                 </form>
               </div>
             </main>
           </div>
         </div>
+        <CloseDialog
+          show={showDialog}
+          title={"Cảnh báo"}
+          message={"Bạn có muốn xoá địa chỉ này không ?"}
+          confirm={confirmDialog}
+          cancel={cancel}
+        />
       </section>
     </>
   );

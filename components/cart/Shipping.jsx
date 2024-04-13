@@ -223,7 +223,7 @@ const Shipping = ({ addresses }) => {
                   <li className="flex justify-between mb-1">
                     <span>Tổng giá tiền:</span>
                     <span>
-                      {cart?.checkoutInfo?.amount.toLocaleString()}.000 VNĐ
+                      {(+cart?.checkoutInfo?.amount).toLocaleString()}.000 VNĐ
                     </span>
                   </li>
                   <li className="flex justify-between mb-1">
@@ -278,7 +278,7 @@ const Shipping = ({ addresses }) => {
                       <p>{item.name.substring(0, 50)}</p>
                       <p className="mt-1 text-gray-400">
                         Tổng tiền:{" "}
-                        {(item.quantity * item.price).toLocaleString()}.000 VNĐ
+                        {(+item.quantity * item.price).toLocaleString()}.000 VNĐ
                       </p>
                     </figcaption>
                   </figure>

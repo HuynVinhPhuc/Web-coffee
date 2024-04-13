@@ -48,7 +48,7 @@ const UpdateProduct = ({ data }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    updateProduct(product, data?._id);
+    updateProduct(product, data?._id, false);
   };
 
   return (

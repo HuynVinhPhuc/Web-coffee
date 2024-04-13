@@ -94,9 +94,10 @@ const UpdateOrder = ({ order }) => {
               {order?.paymentInfo?.status?.toUpperCase()}
             </li>
             <li>
-              Phí vận chuyển: {order?.deliveryCharges.toLocaleString()}.000 VNĐ
+              Phí vận chuyển: {(+order?.deliveryCharges).toLocaleString()}.000
+              VNĐ
             </li>
-            <li>Tổng tiền: {order?.totalAmount.toLocaleString()}.000 VNĐ</li>
+            <li>Tổng tiền: {(+order?.totalAmount).toLocaleString()}.000 VNĐ</li>
           </ul>
         </div>
       </div>

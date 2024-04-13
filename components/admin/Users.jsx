@@ -1,12 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CustomPagination from "../layouts/CustomPagination";
 import AuthContext from "@/context/AuthContext";
+import CloseDialog from "../layouts/CloseDialog";
 
 const Users = ({ data }) => {
   const { error, deleteUser, clearErrors } = useContext(AuthContext);
+
+  const [showDialog, setShowDialog] = useState(false);
+  const [deleteId, setDeleteId] = useState();
 
   useEffect(() => {
     if (error) {
@@ -16,7 +20,20 @@ const Users = ({ data }) => {
   }, [error]);
 
   const deleteHandler = (id) => {
-    deleteUser(id);
+    setDeleteId(id);
+    setShowDialog(true);
+  };
+
+  const confirmDialog = () => {
+    setShowDialog(false);
+    if (deleteId) {
+      deleteUser(deleteId);
+      setDeleteId(null);
+    }
+  };
+
+  const cancel = () => {
+    setShowDialog(false);
   };
 
   return (
@@ -65,6 +82,13 @@ const Users = ({ data }) => {
               </td>
             </tr>
           ))}
+          <CloseDialog
+            show={showDialog}
+            title={"Cảnh báo"}
+            message={"Bạn có muốn xoá người dùng này không ?"}
+            confirm={confirmDialog}
+            cancel={cancel}
+          />
         </tbody>
       </table>
       {data?.usersCount > data?.resPerPage && (

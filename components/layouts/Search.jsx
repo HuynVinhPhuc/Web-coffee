@@ -12,9 +12,9 @@ const Search = () => {
     e.preventDefault();
 
     if (keyword) {
-      router.push(`/?keyword=${keyword}`);
+      router.push(`/product?keyword=${keyword}`);
     } else {
-      router.push("/");
+      router.push("/product");
     }
   };
 

@@ -16,6 +16,8 @@ const ProductItem = ({ product }) => {
       stock: product.stock,
       seller: product.seller,
       discount: product.discount,
+      description: product.description,
+      category: product.category,
     });
   };
 
@@ -79,7 +81,7 @@ const ProductItem = ({ product }) => {
             {product?.discount !== "0" ? (
               <>
                 <span className="text-sm font-semibold text-[#666] line-through">
-                  {(product?.price).toLocaleString()}.000 VNĐ
+                  {(+product?.price).toLocaleString()}.000 VNĐ
                 </span>
                 <br />
                 <span className="text-xl font-semibold text-red-600">
@@ -92,7 +94,7 @@ const ProductItem = ({ product }) => {
               </>
             ) : (
               <span className="text-xl font-semibold text-black">
-                {(product?.price).toLocaleString()}.000 VNĐ
+                {(+product?.price).toLocaleString()}.000 VNĐ
               </span>
             )}
             {/* <span className="text-xl font-semibold text-black">

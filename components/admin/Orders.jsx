@@ -1,12 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CustomPagination from "../layouts/CustomPagination";
 import OrderContext from "@/context/OrderContext";
+import CloseDialog from "../layouts/CloseDialog";
 
 const Orders = ({ orders }) => {
   const { deleteOrder, error, clearErrors } = useContext(OrderContext);
+
+  const [showDialog, setShowDialog] = useState(false);
+  const [deleteId, setDeleteId] = useState();
 
   useEffect(() => {
     if (error) {
@@ -16,8 +20,22 @@ const Orders = ({ orders }) => {
   }, [error]);
 
   const deleteHandler = (id) => {
-    deleteOrder(id);
+    setDeleteId(id);
+    setShowDialog(true);
   };
+
+  const confirmDialog = () => {
+    setShowDialog(false);
+    if (deleteId) {
+      deleteOrder(deleteId);
+      setDeleteId(null);
+    }
+  };
+
+  const cancel = () => {
+    setShowDialog(false);
+  };
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <h1 className="text-3xl my-5 ml-4 font-bold">
@@ -27,7 +45,7 @@ const Orders = ({ orders }) => {
         <thead className="text-l text-gray-700 uppercase">
           <tr>
             <th scope="col" className="px-6 py-3">
-              ID
+              ID Đơn hàng
             </th>
             <th scope="col" className="px-6 py-3">
               Tổng tiền
@@ -45,7 +63,7 @@ const Orders = ({ orders }) => {
             <tr className="bg-white">
               <td className="px-6 py-2">{order?._id}</td>
               <td className="px-6 py-2">
-                {(order?.totalAmount).toLocaleString()}.000 VNĐ
+                {(+order?.totalAmount).toLocaleString()}.000 VNĐ
               </td>
               <td className="px-6 py-2">{order?.orderStatus}</td>
               <td className="px-6 py-2">
@@ -66,6 +84,13 @@ const Orders = ({ orders }) => {
               </td>
             </tr>
           ))}
+          <CloseDialog
+            show={showDialog}
+            title={"Cảnh báo"}
+            message={"Bạn có muốn xoá đơn hàng này không ?"}
+            confirm={confirmDialog}
+            cancel={cancel}
+          />
         </tbody>
       </table>
 

@@ -32,6 +32,8 @@ const ProductDetails = ({ product }) => {
       stock: product.stock,
       seller: product.seller,
       discount: product.discount,
+      description: product.description,
+      category: product.category,
     });
   };
 

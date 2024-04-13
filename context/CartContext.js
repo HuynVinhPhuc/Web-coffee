@@ -7,17 +7,27 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [cartOrder, setCartOrder] = useState([]);
 
   const router = useRouter();
 
   useEffect(() => {
     setCartToState();
+    setCartOrderToState();
   }, []);
 
   const setCartToState = () => {
     setCart(
       localStorage.getItem("cart")
         ? JSON.parse(localStorage.getItem("cart"))
+        : []
+    );
+  };
+
+  const setCartOrderToState = () => {
+    setCartOrder(
+      localStorage.getItem("cartorder")
+        ? JSON.parse(localStorage.getItem("cartorder"))
         : []
     );
   };
@@ -31,6 +41,8 @@ export const CartProvider = ({ children }) => {
     seller,
     quantity = 1,
     discount,
+    description,
+    category,
   }) => {
     const item = {
       product,
@@ -41,6 +53,8 @@ export const CartProvider = ({ children }) => {
       seller,
       quantity,
       discount,
+      description,
+      category,
     };
 
     const isItemExist = cart?.cartItems?.find(
@@ -95,14 +109,21 @@ export const CartProvider = ({ children }) => {
     setCartToState();
   };
 
+  const addCartToCartOrder = () => {
+    localStorage.setItem("cartorder", JSON.stringify(cart));
+    setCartOrderToState();
+  };
+
   return (
     <CartContext.Provider
       value={{
         cart,
+        cartOrder,
         addItemToCart,
         saveOnCheckout,
         deleteItemFromCart,
         clearCart,
+        addCartToCartOrder,
       }}
     >
       {children}

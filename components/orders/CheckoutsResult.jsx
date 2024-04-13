@@ -8,9 +8,12 @@ import OrderContext from "@/context/OrderContext";
 import { useRouter } from "next/navigation";
 import moment from "moment";
 import Link from "next/link";
+import ProductContext from "@/context/ProductContext";
 
 const CheckoutsResult = () => {
-  const { cart, clearCart } = useContext(CartContext);
+  const { cart, clearCart, cartOrder, addCartToCartOrder } =
+    useContext(CartContext);
+  const { updateProduct } = useContext(ProductContext);
   const { user } = useContext(AuthContext);
   let userOrder = user;
   const [paymentStatus, setPaymentStatus] = useState(
@@ -23,6 +26,10 @@ const CheckoutsResult = () => {
   const { newOrder } = useContext(OrderContext);
 
   useEffect(() => {
+    if (cartOrder?.cartItems == undefined) {
+      addCartToCartOrder();
+    }
+
     if (window.location.href.indexOf("delivery=true") !== -1) {
       setPaymentOrderInfo("Thanh toán khi nhận hàng");
       setPaymentStatus("Thanh toán khi nhận hàng");
@@ -67,6 +74,10 @@ const CheckoutsResult = () => {
         deliveryCharges: cart?.checkoutInfo?.deliveryCharges,
       };
 
+      {
+        cart?.cartItems?.map((item) => updateStock(item));
+      }
+
       newOrder(data);
 
       if (window.location.href.indexOf("vnp_TransactionStatus=00") !== -1) {
@@ -75,7 +86,7 @@ const CheckoutsResult = () => {
       if (window.location.href.indexOf("delivery=true") !== -1) {
         router.replace("/shipping/checkoutresult?delivery=true");
       }
-      //clearCart();
+      clearCart();
     }
 
     if (
@@ -85,6 +96,19 @@ const CheckoutsResult = () => {
       router.replace("/shipping/checkoutresult?vnpay=false");
     }
   }, [cart, userOrder]);
+
+  const updateStock = (item) => {
+    const updateData = {
+      name: item?.name,
+      description: item?.description,
+      seller: item?.seller,
+      price: item?.price,
+      stock: item?.stock - item?.quantity,
+      category: item?.category,
+      discount: item?.discount,
+    };
+    updateProduct(updateData, item?.product, true);
+  };
 
   return (
     <>
@@ -118,7 +142,8 @@ const CheckoutsResult = () => {
               <ul className="text-gray-600">
                 <li>{user?.name}</li>
                 <li>
-                  Số điện thoại: {cart?.checkoutInfo?.shippinginfo?.phoneNo}
+                  Số điện thoại:{" "}
+                  {cartOrder?.checkoutInfo?.shippinginfo?.phoneNo}
                 </li>
                 <li>Địa chỉ Email: {user?.email}</li>
               </ul>
@@ -127,11 +152,11 @@ const CheckoutsResult = () => {
               <p className="text-gray-400 mb-1">Địa chỉ giao hàng</p>
               <ul className="text-gray-600">
                 <li>
-                  {cart?.checkoutInfo?.shippinginfo?.city},{" "}
-                  {cart?.checkoutInfo?.shippinginfo?.district},{" "}
-                  {cart?.checkoutInfo?.shippinginfo?.ward}
+                  {cartOrder?.checkoutInfo?.shippinginfo?.city},{" "}
+                  {cartOrder?.checkoutInfo?.shippinginfo?.district},{" "}
+                  {cartOrder?.checkoutInfo?.shippinginfo?.ward}
                 </li>
-                <li>{cart?.checkoutInfo?.shippinginfo?.street}</li>
+                <li>{cartOrder?.checkoutInfo?.shippinginfo?.street}</li>
               </ul>
             </div>
             <div>
@@ -139,14 +164,14 @@ const CheckoutsResult = () => {
               <ul className="text-gray-600">
                 <li>
                   Phí vận chuyển:{" "}
-                  {(+cart?.checkoutInfo?.deliveryCharges).toLocaleString()}
+                  {(+cartOrder?.checkoutInfo?.deliveryCharges).toLocaleString()}
                   .000 VNĐ
                 </li>
                 <li>
                   Tổng tiền:{" "}
                   {(
-                    Number(cart?.checkoutInfo?.totalAmount) +
-                    Number(cart?.checkoutInfo?.deliveryCharges)
+                    Number(cartOrder?.checkoutInfo?.totalAmount) +
+                    Number(cartOrder?.checkoutInfo?.deliveryCharges)
                   ).toLocaleString()}
                   .000 VNĐ
                 </li>
@@ -157,7 +182,7 @@ const CheckoutsResult = () => {
           <hr className="my-4" />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
-            {cart?.cartItems?.map((item) => (
+            {cartOrder?.cartItems?.map((item) => (
               <figure className="flex flex-row mb-4">
                 <div>
                   <div className="block w-20 h-20 rounded border border-gray-200 overflow-hidden p-3">

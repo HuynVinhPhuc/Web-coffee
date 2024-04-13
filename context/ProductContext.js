@@ -13,14 +13,14 @@ export const ProductProvider = ({ children }) => {
 
   const router = useRouter();
 
-  const updateProduct = async (product, id) => {
+  const updateProduct = async (product, id, updateStock) => {
     try {
       const { data } = await axios.put(
         `${process.env.API_URL}/api/admin/products/${id}`,
         product
       );
 
-      if (data) {
+      if (data && !updateStock) {
         setUpdated(true);
         router.replace(`/admin/products`);
       }

@@ -127,19 +127,23 @@ const Cart = () => {
                             {Number(cartItem?.discount) !== 0 ? (
                               <>
                                 <p className="font-semibold not-italic text-[#666] line-through">
-                                  {(
-                                    cartItem.price * cartItem.quantity
-                                  ).toLocaleString()}
+                                  {
+                                    +(
+                                      cartItem.price * cartItem.quantity
+                                    ).toLocaleString()
+                                  }
                                   .000VND
                                 </p>
                                 <p className="font-semibold not-italic">
-                                  {(
-                                    cartItem.price * cartItem.quantity -
-                                    (cartItem?.price *
-                                      cartItem?.discount *
-                                      cartItem?.quantity) /
-                                      100
-                                  ).toLocaleString()}
+                                  {
+                                    +(
+                                      cartItem.price * cartItem.quantity -
+                                      (cartItem?.price *
+                                        cartItem?.discount *
+                                        cartItem?.quantity) /
+                                        100
+                                    ).toLocaleString()
+                                  }
                                   .000VND
                                 </p>
                                 <small className="text-gray-400">
@@ -153,9 +157,11 @@ const Cart = () => {
                               </>
                             ) : (
                               <p className="font-semibold not-italic">
-                                {(
-                                  cartItem.price * cartItem.quantity
-                                ).toLocaleString()}
+                                {
+                                  +(
+                                    cartItem.price * cartItem.quantity
+                                  ).toLocaleString()
+                                }
                                 .000VND
                               </p>
                             )}
@@ -213,7 +219,7 @@ const Cart = () => {
                     <li className="flex justify-between text-gray-600  mb-1">
                       <span>Tổng giá tiền:</span>
                       <span>
-                        {amountWithoutDiscount.toLocaleString()}.000 VNĐ
+                        {(+amountWithoutDiscount).toLocaleString()}.000 VNĐ
                       </span>
                     </li>
                     <li className="flex justify-between text-gray-600  mb-1">
