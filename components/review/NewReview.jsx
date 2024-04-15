@@ -15,8 +15,6 @@ const NewReview = ({ product }) => {
   useEffect(() => {
     const userReview = getUserReview(product?.reviews, user?._id);
 
-    console.log(userReview);
-
     if (userReview) {
       setRating(userReview?.rating);
       setComment(userReview?.comment);

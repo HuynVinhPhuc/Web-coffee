@@ -14,7 +14,6 @@ export const OrderProvider = ({ children }) => {
   const router = useRouter();
 
   const newOrder = async (order) => {
-    console.log("do new Order");
 
     try {
       const { data } = await axios.post(

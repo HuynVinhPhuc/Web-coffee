@@ -76,7 +76,6 @@ const Shipping = ({ addresses }) => {
           return;
         }
         const distance = response.rows[0].elements[0].distance.text;
-        console.log("distance => ", distance);
         if (distance.includes("km")) {
           setDeliveryCharges(
             calculateShippingFee(Math.floor(parseFloat(distance)))
