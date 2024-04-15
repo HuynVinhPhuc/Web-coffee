@@ -27,7 +27,7 @@ const Shipping = ({ addresses }) => {
   const loadGoogleMapsScript = () => {
     if (!window.google || !window.google.maps) {
       const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyD2KiCzzhImLLukog_mQe-Cs3_SwnLk3sk&libraries=places`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOODLE_API_KEY}-Cs3_SwnLk3sk&libraries=places`;
       script.async = true;
       script.defer = true;
       document.head.appendChild(script);

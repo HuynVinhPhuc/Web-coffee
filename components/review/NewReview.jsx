@@ -44,6 +44,7 @@ const NewReview = ({ product }) => {
           <StarRatings
             rating={rating}
             starRatedColor="#ffb829"
+            starHoverColor="#ffad29"
             numberOfStars={5}
             name="rating"
             changeRating={(e) => setRating(e)}

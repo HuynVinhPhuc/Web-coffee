@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="p-5 ">
           <ul>
             <p className="text-gray-800 font-bold text-3xl pb-6">
-              Web<span className="text-blue-600">Coffee</span>
+              Espresso<span className="text-blue-600">Hub</span>
             </p>
             <div className="flex gap-6 pb-5">
               <div className="text-2xl cursor-pointer hover:text-yellow-600">
@@ -82,9 +82,11 @@ const Footer = () => {
       </div>
       <div className="flex flex-col justify-center items-center text-center  p-5 bg-gray-50">
         <h1 className=" text-gray-800 font-semibold">
-          © 2024-2025 All rights reserved | Build with ❤ by{" "}
+          © 2024 Bản quyền thuộc về tổng công cty B&P. Cấm sao chép dưới mọi
+          hình thức nếu không có sự chấp thuận bằng văn bản | Được xây dựng bằng
+          ❤💩 bởi{" "}
           <span className="hover:text-blue-600 font-semibold cursor-pointer">
-            Me{" "}
+            B&P{" "}
           </span>
         </h1>
       </div>

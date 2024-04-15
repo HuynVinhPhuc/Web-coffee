@@ -84,7 +84,7 @@ const Users = ({ data }) => {
           ))}
           <CloseDialog
             show={showDialog}
-            title={"Cảnh báo"}
+            title={"Bạn có chắc ?"}
             message={"Bạn có muốn xoá người dùng này không ?"}
             confirm={confirmDialog}
             cancel={cancel}

@@ -56,11 +56,11 @@ const HomePage = ({ orders }) => {
         </div>
         <div className=" border border-gray-300">
           <div className="mx-5 my-5">
-            <div className="flex flex-col justify-between md:flex-row flex-wrap">
+            <div className="flex flex-col justify-around md:flex-row flex-wrap mt-9">
               {bestSelling?.map((product) => (
-                <article className="border border-gray-200 overflow-hidden bg-white shadow-sm rounded mb-5 mr-5 flex max-w-fit md:w-1/4 hover:bg-gray-100 hover:border-gray-300">
+                <article className="border border-gray-200 overflow-hidden bg-white shadow-sm rounded mb-5 flex max-w-fit md:w-1/4 hover:bg-gray-100 hover:border-gray-300">
                   <div className="flex flex-col max-w-max ">
-                    <div className=" flex p-3 ">
+                    <div className=" flex px-3 pb-3 pt-8">
                       <div
                         style={{
                           width: "80%",
@@ -72,7 +72,7 @@ const HomePage = ({ orders }) => {
                         <img src={product?.image} />
                       </div>
                     </div>
-                    <div className="">
+                    <div>
                       <div className=" mx-auto p-3">
                         <Link
                           href={`/product/${product.product}`}
@@ -92,7 +92,7 @@ const HomePage = ({ orders }) => {
           </div>
         </div>
       </div>
-      <div className="container max-w-screen-xl mx-auto my-40">
+      <div className="container max-w-screen-xl mx-auto my-10">
         <ImageSlider />
       </div>
     </>

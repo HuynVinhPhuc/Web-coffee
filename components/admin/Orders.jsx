@@ -86,7 +86,7 @@ const Orders = ({ orders }) => {
           ))}
           <CloseDialog
             show={showDialog}
-            title={"Cảnh báo"}
+            title={"Bạn có chắc ?"}
             message={"Bạn có muốn xoá đơn hàng này không ?"}
             confirm={confirmDialog}
             cancel={cancel}

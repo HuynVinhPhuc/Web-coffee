@@ -66,7 +66,7 @@ const CheckoutsResult = () => {
         paymentInfo: paymentOrderInfo,
         totalAmount:
           Number(cart?.checkoutInfo?.totalAmount) +
-          Number(cart?.checkoutInfo?.deliveryCharges.toFixed(0)),
+          Number((+cart?.checkoutInfo?.deliveryCharges).toFixed(0)),
         deliveryCharges: cart?.checkoutInfo?.deliveryCharges,
       };
 

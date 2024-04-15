@@ -253,7 +253,7 @@ const UpdateAddress = ({ id, address }) => {
         </div>
         <CloseDialog
           show={showDialog}
-          title={"Cảnh báo"}
+          title={"Bạn có chắc ?"}
           message={"Bạn có muốn xoá địa chỉ này không ?"}
           confirm={confirmDialog}
           cancel={cancel}
