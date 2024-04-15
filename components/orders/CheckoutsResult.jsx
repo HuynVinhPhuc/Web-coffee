@@ -11,14 +11,11 @@ import Link from "next/link";
 import ProductContext from "@/context/ProductContext";
 
 const CheckoutsResult = () => {
-  const { cart, clearCart, cartOrder, addCartToCartOrder } =
-    useContext(CartContext);
+  const { cart, clearCart, cartOrder, addCartToCartOrder } = useContext(CartContext);
   const { updateProduct } = useContext(ProductContext);
   const { user } = useContext(AuthContext);
   let userOrder = user;
-  const [paymentStatus, setPaymentStatus] = useState(
-    "Thanh toán không thành công"
-  );
+  const [paymentStatus, setPaymentStatus] = useState("Thanh toán không thành công");
   const [paymentOrderInfo, setPaymentOrderInfo] = useState();
 
   const router = useRouter();
@@ -44,7 +41,6 @@ const CheckoutsResult = () => {
         window.location.href.indexOf("vnpay=true") !== -1
       ) {
         setPaymentStatus("Thanh toán thành công");
-        console.log("do");
       }
       if (
         (window.location.href.indexOf("vnp_TransactionStatus") !== -1 &&

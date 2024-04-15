@@ -41,7 +41,6 @@ const UpdateAddress = ({ id, address }) => {
     setShowDialog(false);
     if (deleteId) {
       deleteAddress(deleteId);
-      console.log("1");
       setDeleteId(null);
     }
   };

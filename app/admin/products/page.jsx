@@ -17,10 +17,10 @@ const getProducts = async (searchParams) => {
   return data;
 };
 
-const HomePage = async ({ searchParams }) => {
+const ProductPage = async ({ searchParams }) => {
   const data = await getProducts(searchParams);
 
   return <Products data={data} />;
 };
 
-export default HomePage;
+export default ProductPage;

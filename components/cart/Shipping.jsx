@@ -45,17 +45,7 @@ const Shipping = ({ addresses }) => {
 
     saveOnCheckout(shippingData);
     setShippinInfo(address._id);
-    console.log(
-      "địa chỉ: " +
-        address.street +
-        ", " +
-        address.ward +
-        ", " +
-        address.district +
-        ", " +
-        address.city +
-        ", Việt Nam"
-    );
+
     // calculateDistance(address.street + ", " + address.ward + ", " + address.district + ", " + address.city + ", Việt Nam");
 
     setDeliveryCharges(50);

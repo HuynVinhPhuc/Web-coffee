@@ -22,7 +22,7 @@ export const getOrders = async (req, res) => {
     resPerPage
   );
 
-  const orders = await apiFilters.query.find().populate("shippingInfo user");
+  const orders = await apiFilters.query.find();
 
   res.status(200).json({
     ordersCount,
@@ -47,7 +47,7 @@ export const getOrder = async (req, res) => {
 
 export const myOrders = async (req, res) => {
   const resPerPage = 3;
-  const ordersCount = await Order.countDocuments();
+  const ordersCount = await Order.find({ user: req.user._id }).countDocuments();
 
   const apiFilters = new APIFilters(Order.find(), req.query).pagination(
     resPerPage

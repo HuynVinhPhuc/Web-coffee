@@ -19,7 +19,6 @@ function ImageSlider() {
             }}
             navigation={false}
             pagination={{ type: "fraction" }}
-            onSwiper={(swiper) => console.log(swiper)}
             className="h-full w-full rounded-lg"
           >
             {images.map((image, index) => (

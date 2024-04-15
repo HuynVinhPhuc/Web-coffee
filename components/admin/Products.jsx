@@ -15,7 +15,6 @@ const Products = ({ data }) => {
 
   useEffect(() => {
     if (error) {
-      console.log("error => ", error);
       toast.error(error);
       clearErrors();
     }

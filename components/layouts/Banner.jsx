@@ -10,8 +10,8 @@ const Banner = () => {
       "Giao hàng đúng thời gian theo yêu cầu.",
     ],
     loop: true,
-    typeSpeed: 30,
-    deleteSpeed: 10,
+    typeSpeed: 40,
+    deleteSpeed: 20,
     delaySpeed: 2000,
   });
   return (

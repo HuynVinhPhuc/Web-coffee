@@ -64,7 +64,6 @@ export const uploadProductImages = async (req, res, next) => {
     const { path } = file;
     const imgUrl = await uploader(path);
     imgUrl.url = imgUrl.url.replace("http://", "");
-    console.log("imgUrl.url => ", imgUrl.url);
     urls.push(imgUrl);
     fs.unlinkSync(path);
   }
