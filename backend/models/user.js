@@ -23,11 +23,11 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "user",
+    default: "Khách hàng",
   },
   status: {
     type: String,
-    default: "enable",
+    default: "Mở",
   },
   createdAt: {
     type: Date,

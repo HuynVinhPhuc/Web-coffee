@@ -20,7 +20,7 @@ export default async function auth(req, res) {
           const user = await User.findOne({ email }).select("+password");
 
           if (!user) {
-            throw new Error("Invalid Email or Password");
+            throw new Error("Tài khoảng hoặc mật khẩu không chính xác !!!");
           }
 
           const isPasswordMatched = await bcrypt.compare(
@@ -29,10 +29,10 @@ export default async function auth(req, res) {
           );
 
           if (!isPasswordMatched) {
-            throw new Error("Invalid Email or Password");
+            throw new Error("Tài khoảng hoặc mật khẩu không chính xác !!!");
           }
 
-          if (user.status !== "enable") {
+          if (user.status !== "Mở") {
             throw new Error("Tài khoản của bạn đã bị khóa");
           }
 

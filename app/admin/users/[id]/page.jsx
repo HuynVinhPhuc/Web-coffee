@@ -24,7 +24,7 @@ const getUser = async (id) => {
 const AdminUserDetailsPage = async ({ params }) => {
   const data = await getUser(params?.id);
 
-  return <UpdateUser user={data?.user} />;
+  return <UpdateUser userdata={data?.user} />;
 };
 
 export default AdminUserDetailsPage;

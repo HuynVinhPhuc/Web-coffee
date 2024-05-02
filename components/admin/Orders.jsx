@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import CustomPagination from "../layouts/CustomPagination";
 import OrderContext from "@/context/OrderContext";
 import CloseDialog from "../layouts/CloseDialog";
+import { toast } from "react-toastify";
 
 const Orders = ({ orders }) => {
   const { deleteOrder, error, clearErrors } = useContext(OrderContext);

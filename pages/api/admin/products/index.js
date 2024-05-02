@@ -11,6 +11,6 @@ const handler = nc({ onError });
 
 dbConnect();
 
-handler.use(isAuthenticatedUser, authorizeRoles("admin")).post(newProduct);
+handler.use(isAuthenticatedUser, authorizeRoles("Quản lý")).post(newProduct);
 
 export default handler;

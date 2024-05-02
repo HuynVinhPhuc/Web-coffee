@@ -4,14 +4,14 @@ import AuthContext from "@/context/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const UpdateUser = ({ user }) => {
+const UpdateUser = ({ userdata }) => {
   const { error, updateUser, clearErrors, updated, setUpdated } =
     useContext(AuthContext);
-
-  const [name, setName] = useState(user?.name);
-  const [email, setEmail] = useState(user?.email);
-  const [role, setRole] = useState(user?.role);
-  const [status, setStatus] = useState(user?.status);
+  const { user } = useContext(AuthContext);
+  const [name, setName] = useState(userdata?.name);
+  const [email, setEmail] = useState(userdata?.email);
+  const [role, setRole] = useState(userdata?.role);
+  const [status, setStatus] = useState(userdata?.status);
 
   useEffect(() => {
     if (updated) {
@@ -30,7 +30,7 @@ const UpdateUser = ({ user }) => {
 
     const userData = { name, email, role, status };
 
-    updateUser(user?._id, userData);
+    updateUser(userdata?._id, userData);
   };
 
   return (
@@ -73,11 +73,12 @@ const UpdateUser = ({ user }) => {
             <select
               class="block appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               name="category"
+              disabled={user?.role === "Nhân viên"}
               value={role}
               onChange={(e) => setRole(e.target.value)}
               required
             >
-              {["user", "admin"].map((role) => (
+              {["Khách hàng", "Quản lý", "Nhân viên"].map((role) => (
                 <option key={role} value={role}>
                   {role}
                 </option>
@@ -106,7 +107,7 @@ const UpdateUser = ({ user }) => {
               onChange={(e) => setStatus(e.target.value)}
               required
             >
-              {["enable", "disable"].map((status) => (
+              {["Mở", "Khóa"].map((status) => (
                 <option key={status} value={status}>
                   {status}
                 </option>

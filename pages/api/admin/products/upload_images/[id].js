@@ -21,7 +21,7 @@ export const config = {
 const uploadMiddleware = upload.array("image");
 
 handler
-  .use(uploadMiddleware, isAuthenticatedUser, authorizeRoles("admin"))
+  .use(uploadMiddleware, isAuthenticatedUser, authorizeRoles("Quản lý"))
   .post(uploadProductImages);
 
 export default handler;

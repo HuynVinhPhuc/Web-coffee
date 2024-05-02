@@ -124,7 +124,11 @@ const UpdateAddress = ({ id, address }) => {
       street,
     };
 
-    updateAddress(id, newAddress);
+    if (phoneNo.length !== 10) {
+      toast.error("Hãy nhập số điện thoại hợp lệ !!!");
+    } else {
+      updateAddress(id, newAddress);
+    }
   };
 
   return (

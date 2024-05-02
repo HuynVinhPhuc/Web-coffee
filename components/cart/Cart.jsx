@@ -64,7 +64,7 @@ const Cart = () => {
         </div>
       </section>
 
-      {cart?.cartItems?.length > 0 && (
+      {cart?.cartItems?.length > 0 ? (
         <section className="py-10">
           <div className="container max-w-screen-xl mx-auto px-4">
             <div className="flex flex-col md:flex-row gap-4">
@@ -165,25 +165,6 @@ const Cart = () => {
                                 .000VND
                               </p>
                             )}
-                            {/* <p className="font-semibold not-italic">
-                              {cartItem.price * cartItem.quantity}.000VND
-                            </p>
-                            {Number(cartItem?.discount) !== 0 && (
-                              <p className="font-semibold text-red-500">
-                                -
-                                {(
-                                  (cartItem?.price *
-                                    cartItem?.discount *
-                                    cartItem?.quantity) /
-                                  100
-                                ).toFixed(0)}
-                                .000 VNĐ
-                              </p>
-                            )}
-                            <small className="text-gray-400">
-                              {" "}
-                              {cartItem.price}.000 VNĐ / mỗi sản phẩm{" "}
-                            </small> */}
                           </div>
                         </div>
                         <div className="flex-auto">
@@ -265,6 +246,8 @@ const Cart = () => {
             </div>
           </div>
         </section>
+      ) : (
+        <div className="py-20"></div>
       )}
     </>
   );

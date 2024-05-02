@@ -84,7 +84,7 @@ const Header = () => {
               >
                 <i className="text-gray-400 w-5 fa fa-shopping-cart"></i>
                 <span className="hidden lg:inline ml-1">
-                  {/* Giỏ hàng  */}(<b>{cartItems?.length || 0}</b>)
+                  (<b>{cartItems?.length || 0}</b>)
                 </span>
               </Link>
 

@@ -89,7 +89,11 @@ const NewAddress = () => {
       street,
     };
 
-    addNewAddress(newAddress);
+    if (phoneNo.length !== 10) {
+      toast.error("Hãy nhập số điện thoại hợp lệ !!!");
+    } else {
+      addNewAddress(newAddress);
+    }
   };
 
   return (

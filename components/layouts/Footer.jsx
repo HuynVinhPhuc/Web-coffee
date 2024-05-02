@@ -82,7 +82,7 @@ const Footer = () => {
       </div>
       <div className="flex flex-col justify-center items-center text-center  p-5 bg-gray-50">
         <h1 className=" text-gray-800 font-semibold">
-          © 2024 Bản quyền thuộc về tổng công cty B&P. Cấm sao chép dưới mọi
+          © 2024 Bản quyền thuộc về tổng công ty B&P. Cấm sao chép dưới mọi
           hình thức nếu không có sự chấp thuận bằng văn bản | Được xây dựng bằng
           ❤💩 bởi{" "}
           <span className="hover:text-blue-600 font-semibold cursor-pointer">

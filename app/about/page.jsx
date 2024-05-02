@@ -14,7 +14,7 @@ const About = () => {
         </p>
         <div className="mt-2">
           <div className="text-[#666]">
-            <p>Chúng tôi là Cửa hàng cà phê B&P.</p>
+            <p>Chúng tôi là Cửa hàng cà phê EspressoHub.</p>
             <p>
               Được thành lập vào tháng 1 năm 2024, với mục đích hoàn thành Niên
               luận ngành của Khoa Kỹ thuật phần mềm, trường CNTT&TT, đại học Cần
@@ -25,7 +25,7 @@ const About = () => {
           <p className="font-semibold text-lg">Thông tin về cửa hàng:</p>
           <br />
           <div className="text-[#666]">
-            <p>Tên cửa hàng: B&P Coffee</p>
+            <p>Tên cửa hàng: EspressoHub</p>
             <p>
               Thành viên: Trần Quốc Bảo - B2012064, Huỳnh Vĩnh Phúc - B2012129
             </p>

@@ -15,9 +15,13 @@ const Sidebar = () => {
   return (
     <aside className="md:w-1/3 lg:w-1/4 px-4">
       <ul className="sidebar">
-        {user?.role === "admin" ? (
+        {user?.role === "Quản lý" ? (
           <>
-            <div className="font-semibold text-2xl mb-3">Admin</div>{" "}
+            <div className="font-semibold text-2xl mb-3">Quản lý</div>{" "}
+          </>
+        ) : user?.role === "Nhân viên" ? (
+          <>
+            <div className="font-semibold text-2xl mb-3">Nhân viên</div>{" "}
           </>
         ) : (
           <>
@@ -26,7 +30,7 @@ const Sidebar = () => {
             </div>{" "}
           </>
         )}
-        {user?.role === "admin" && (
+        {user?.role === "Quản lý" && (
           <>
             <li>
               <Link
@@ -71,8 +75,34 @@ const Sidebar = () => {
           </>
         )}
 
+        {user?.role === "Nhân viên" && (
+          <>
+            <li>
+              {" "}
+              <Link
+                href="/admin/orders"
+                className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
+              >
+                Danh sách đơn hàng
+              </Link>
+            </li>
+
+            <li>
+              {" "}
+              <Link
+                href="/admin/users"
+                className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
+              >
+                Danh sách người dùng
+              </Link>
+            </li>
+
+            <hr />
+          </>
+        )}
+
         <li>
-          {user?.role === "admin" ? (
+          {user?.role === "Quản lý" || user?.role === "Nhân viên" ? (
             <>
               <div className="font-semibold text-2xl my-3">Thông tin chung</div>{" "}
             </>

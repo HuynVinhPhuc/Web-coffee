@@ -97,23 +97,17 @@ const ProductItem = ({ product }) => {
                 {(+product?.price).toLocaleString()}.000 VNĐ
               </span>
             )}
-            {/* <span className="text-xl font-semibold text-black">
-              {product?.price}.000 VNĐ
-            </span>
-
-            {product?.discount !== "0" && (
-              <p className="font-semibold text-red-500">
-                -{((product?.price * product?.discount) / 100).toFixed(0)}.000
-                VNĐ
-              </p>
-            )} */}
             <div className="my-3">
               <a
-                className="px-4 py-2 inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 cursor-pointer"
-                onClick={addToCartHandler}
+                className={`px-4 py-2 inline-block text-white border rounded-md cursor-pointer ${
+                  product?.stock === 0
+                    ? "bg-gray-400"
+                    : "bg-blue-600 hover:bg-blue-700"
+                }`}
+                onClick={product?.stock !== 0 ? addToCartHandler : undefined}
+                disabled={product?.stock === 0}
               >
-                {" "}
-                Thêm vào giỏ{" "}
+                Thêm vào giỏ
               </a>
             </div>
           </div>

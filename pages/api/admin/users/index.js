@@ -11,6 +11,6 @@ const handler = nc({ onError });
 
 dbConnect();
 
-handler.use(isAuthenticatedUser, authorizeRoles("admin")).get(getUsers);
+handler.use(isAuthenticatedUser, authorizeRoles("Quản lý","Nhân viên")).get(getUsers);
 
 export default handler;

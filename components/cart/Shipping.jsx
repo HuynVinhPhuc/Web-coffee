@@ -18,7 +18,7 @@ const Shipping = ({ addresses }) => {
   const [shippingInfo, setShippinInfo] = useState("");
   const [DeliveryCharges, setDeliveryCharges] = useState("0");
 
-  const [paymentType, setPaymentType] = useState("delivery");
+  const [paymentType, setPaymentType] = useState("Thanh toán khi nhận hàng");
 
   useEffect(() => {
     // loadGoogleMapsScript();
@@ -91,7 +91,7 @@ const Shipping = ({ addresses }) => {
       return toast.error("Please select your shipping address");
     }
     try {
-      if (paymentType == "delivery") {
+      if (paymentType == "Thanh toán khi nhận hàng") {
         window.location.href = `http://localhost:3000/shipping/checkoutresult?delivery=true&userid=${user._id}`;
       } else {
         const { data } = await axios.post(
@@ -161,26 +161,20 @@ const Shipping = ({ addresses }) => {
                   href="/address/new"
                   className="px-4 py-2 inline-block text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100"
                 >
-                  <i className="mr-1 fa fa-plus"></i> Add new address
+                  <i className="mr-1 fa fa-plus"></i> Thêm địa chỉ mới
                 </Link>
 
-                <div className="flex justify-end space-x-2 mt-10">
-                  <Link
-                    href="/cart"
-                    className="px-5 py-2 inline-block text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:text-blue-600"
-                  >
-                    Trở về
-                  </Link>
+                <div className="flex justify-between space-x-2 mt-10">
                   <div class="relative">
                     <select
-                      class="block appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
+                      class=" text-center block appearance-none border border-gray-300 bg-white rounded-md py-2 pr-6 pl-3 hover:border-gray-500 hover:cursor-pointer focus:outline-none focus:border-gray-400 w-full"
                       name="category"
                       value={paymentType}
                       onChange={(e) => setPaymentType(e.target.value)}
                       required
                     >
-                      {["delivery", "vnpay"].map((status) => (
-                        <option key={status} value={status}>
+                      {["Thanh toán khi nhận hàng", "Thanh toán trực tuyến"].map((status) => (
+                        <option className="px-10" key={status} value={status}>
                           {status}
                         </option>
                       ))}
@@ -196,12 +190,21 @@ const Shipping = ({ addresses }) => {
                       </svg>
                     </i>
                   </div>
-                  <a
-                    className="px-5 py-2 inline-block text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 cursor-pointer"
-                    onClick={checkoutHandler}
-                  >
-                    Thanh toán
-                  </a>
+                  <div>
+                    <Link
+                      href="/cart"
+                      className="px-5 py-2 mr-3 inline-block text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:text-blue-600"
+                    >
+                      Trở về
+                    </Link>
+
+                    <a
+                      className="px-5 py-2 inline-block text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 cursor-pointer"
+                      onClick={checkoutHandler}
+                    >
+                      Thanh toán
+                    </a>
+                  </div>
                 </div>
               </article>
             </main>

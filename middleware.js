@@ -7,7 +7,11 @@ export default withAuth(
     const url = req.nextUrl.pathname;
     const userRole = req?.nextauth?.token?.user?.role;
 
-    if (url?.startsWith("/admin") && userRole !== "admin") {
+    if (url?.startsWith("/admin") && userRole !== "Quản lý" && userRole !== "Nhân viên" ) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
+    if (url?.startsWith("/admin/products") && userRole !== "Quản lý") {
       return NextResponse.redirect(new URL("/", req.url));
     }
   },

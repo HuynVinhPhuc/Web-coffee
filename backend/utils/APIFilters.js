@@ -42,7 +42,6 @@ class APIFilters {
         output[prop][`$${operator}`] = queryCopy[key];
       }
     }
-    // { price: { $gte: 100, $lte: 1000 } }
 
     this.query = this.query.find(output);
     return this;

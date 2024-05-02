@@ -127,7 +127,7 @@ const Filters = () => {
                   />
                   <span className="font-bold ml-2 text-red-500">
                     {" "}
-                    Giảm giá{" "}
+                    Sản phẩm đang giảm giá{" "}
                   </span>
                 </label>
               </li>
@@ -135,7 +135,7 @@ const Filters = () => {
           </div>
 
           <div className="md:block px-6 py-4 border border-gray-200 bg-white rounded shadow-sm">
-            <h3 className="font-semibold mb-2">Loại</h3>
+            <h3 className="font-semibold mb-2">Loại cà phê</h3>
 
             <ul className="space-y-1">
               <li>
@@ -290,14 +290,16 @@ const Filters = () => {
                 defaultChecked={checkHandler("discount", "0")}
                 onClick={(e) => handleClick(e.target)}
               />
-              <span className="font-bold ml-2 text-red-500"> Giảm giá </span>
+              <span className="font-bold ml-2 text-red-500">
+                Sản phẩm đang giảm giá{" "}
+              </span>
             </label>
           </li>
         </ul>
       </div>
 
       <div className="hidden md:block px-6 py-4 border border-gray-200 bg-white rounded shadow-sm">
-        <h3 className="font-semibold mb-2">Loại</h3>
+        <h3 className="font-semibold mb-2">Loại cà phê</h3>
 
         <ul className="space-y-1">
           <li>
