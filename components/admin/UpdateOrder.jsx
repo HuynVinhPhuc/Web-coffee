@@ -36,7 +36,7 @@ const UpdateOrder = ({ order }) => {
           <p className="font-semibold">
             ID đơn hàng:
             <span className="text-[#666] font-normal"> {order?._id} </span>
-            {order?.orderStatus == "Processing" ? (
+            {order?.orderStatus == "Đang xử lý" ? (
               <span className="text-red-500">
                 • {order?.orderStatus.toUpperCase()}
               </span>
@@ -148,7 +148,7 @@ const UpdateOrder = ({ order }) => {
             onChange={(e) => setOrderStatus(e.target.value)}
             required
           >
-            {["Processing", "Shipped", "Delivered"].map((status) => (
+            {["Đang xử lý", "Đang giao hàng", "Đã giao hàng"].map((status) => (
               <option key={status} value={status}>
                 {status}
               </option>

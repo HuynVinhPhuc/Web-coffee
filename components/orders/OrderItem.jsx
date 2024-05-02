@@ -8,7 +8,7 @@ const OrderItem = ({ order }) => {
         <div className="mb-4 lg:mb-0">
           <p className="font-semibold">
             <span>ID đơn hàng: {order?._id} </span>
-            {order?.orderStatus == "Processing" ? (
+            {order?.orderStatus == "Đang xử lý" ? (
               <span className="text-red-500">
                 • {order?.orderStatus.toUpperCase()}
               </span>

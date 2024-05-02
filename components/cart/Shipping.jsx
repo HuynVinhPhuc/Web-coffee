@@ -21,13 +21,13 @@ const Shipping = ({ addresses }) => {
   const [paymentType, setPaymentType] = useState("Thanh toán khi nhận hàng");
 
   useEffect(() => {
-    // loadGoogleMapsScript();
-  }, []);
+    loadGoogleMapsScript();
+  });
 
   const loadGoogleMapsScript = () => {
     if (!window.google || !window.google.maps) {
       const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOODLE_API_KEY}-Cs3_SwnLk3sk&libraries=places`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOODLE_API_KEY}&libraries=places`;
       script.async = true;
       script.defer = true;
       document.head.appendChild(script);
@@ -46,9 +46,7 @@ const Shipping = ({ addresses }) => {
     saveOnCheckout(shippingData);
     setShippinInfo(address._id);
 
-    // calculateDistance(address.street + ", " + address.ward + ", " + address.district + ", " + address.city + ", Việt Nam");
-
-    setDeliveryCharges(50);
+    calculateDistance(address.street + ", " + address.ward + ", " + address.district + ", " + address.city + ", Việt Nam");
   };
 
   const calculateDistance = (destination) => {
